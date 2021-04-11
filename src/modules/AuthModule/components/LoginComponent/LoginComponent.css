@@ -1,0 +1,30 @@
+
+.hero {
+  min-height: 100vh;
+  height: 100vh;
+  width: 100%;
+  background-image: url('../../../../assets/images/Login_Background.jpg');
+}
+
+.hero__catch {
+  height: 100%;
+  width: 50%;
+  margin-left: auto;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem;
+  box-sizing: border-box;
+}
+
+.hero__title {
+  font-size: 4rem;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+}

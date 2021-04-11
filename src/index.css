@@ -1,3 +1,22 @@
+:root {
+  font-family: 'Montserrat', sans-serif;
+  --primaryColor: #03a9f4;
+  --lightPrimaryColor: #b3e5fc;
+  --darkPrimaryColor: #0288d1;
+  --textIconsColor: #ffffff;
+  --textPrimaryColor: #212121;
+  --textSecondayColor: #757575;
+  --dividerColor: #bdbdbd;
+}
+
+body {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
 .main {
   text-align: center;
   display: flex;

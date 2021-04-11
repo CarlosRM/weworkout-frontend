@@ -1,28 +1,69 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
-
+import {
+  BrowserRouter as Router,
+  Switch,
+  Redirect
+} from 'react-router-dom'
 import style from './index.css'
+import FooterComponent from './modules/FooterModule/FooterComponent'
+import FrontPageComponent from './modules/FrontPageModule/FrontPageComponent'
+import HeaderComponent from './modules/HeaderModule/HeaderComponent'
+import { Provider, useDispatch, useSelector } from 'react-redux'
+import store from './store'
+import { ThemeProvider } from '@material-ui/styles'
+import theme from './theme'
+import LoginComponent from './modules/AuthModule/components/LoginComponent/LoginComponent'
+import ProtectedRoute from './ProtectedRoute'
+import * as guards from './guards'
+import { selectEntireState } from './constants'
+import DashboardComponent from './modules/DashboardModule/components/DashboardComponent'
 
 const App = () => {
-  const [apiStatus, setApiStatus] = useState('La API aún no ha cargado')
-
-  async function fetchAPI () {
-    const response = await fetch('http://127.0.0.1:8000/api/apitest')
-      .then(response => response.json())
-    console.log(response.data)
-    setApiStatus(response.data)
-  }
+  const entireState = useSelector(selectEntireState)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    // Actualiza el título del documento usando la API del navegador
-    fetchAPI()
-  }, [])
+    if (entireState.auth.logout.success) {
+      dispatch({ type: 'resetState' })
+    }
+  }, [entireState.auth.logout.success])
 
   return (
-    <div className={style.main}>
-        <h1>{apiStatus}</h1>
+    <div>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <HeaderComponent />
+            <Switch>
+              <ProtectedRoute
+                functions={[guards.isUserLoggedOut]}
+                appState={entireState}
+                redirect='/dashboard'
+                path="/login" component={LoginComponent} exact />
+
+              <ProtectedRoute
+                functions={[guards.isUserLoggedOut]}
+                appState={entireState}
+                redirect='/dashboard'
+                path="/" component={FrontPageComponent} exact />
+
+              <ProtectedRoute
+                functions={[guards.isUserLoggedIn]}
+                appState={entireState}
+                redirect='/login'
+                path="/dashboard" component={DashboardComponent} exact />
+              <Redirect to="/" />
+            </Switch>
+          <FooterComponent />
+        </Router>
+      </ThemeProvider>
     </div>
+
   )
 }
 
-ReactDOM.render(<App />, document.querySelector('#root'))
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.querySelector('#root'))
