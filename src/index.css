@@ -7,6 +7,7 @@
   --textPrimaryColor: #212121;
   --textSecondayColor: #757575;
   --dividerColor: #bdbdbd;
+  --errorColor: red;
 }
 
 body {

@@ -10,7 +10,7 @@
   height: 100%;
   width: 50%;
   margin-left: auto;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(5px);
   display: flex;
   flex-direction: column;
@@ -21,10 +21,21 @@
 }
 
 .hero__title {
-  font-size: 4rem;
+  font-size: 2.5rem;
+  text-align: center;
 }
 
 .loginForm {
   display: flex;
   flex-direction: column;
+}
+
+.login__error {
+  color: var(--errorColor);
+}
+
+@media screen and (max-width: 500px) {
+  .hero__catch {
+    width: 100%;
+  }
 }

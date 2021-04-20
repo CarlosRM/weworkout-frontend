@@ -2,9 +2,9 @@ import { createMuiTheme } from '@material-ui/core/styles'
 
 const theme = createMuiTheme({
   palette: {
-    type: 'dark',
+    type: 'light',
     primary: {
-      main: '#1ffaf9'
+      main: '#03a9f4'
     },
     secondary: {
       main: '#fff'
@@ -20,6 +20,22 @@ const theme = createMuiTheme({
   typography: {
     button: {
       fontWeight: 'bolder'
+    }
+  },
+  overrides: {
+    MuiTextField: {
+      root: {
+        marginTop: '0.5rem',
+        marginBottom: '0.5rem',
+        '& label.Mui-focused': {
+          color: '#212121'
+        },
+        '& .MuiOutlinedInput-root': {
+          '&.Mui-focused fieldset': {
+            borderColor: '#212121'
+          }
+        }
+      }
     }
   }
 })

@@ -14,6 +14,19 @@ export async function loginUser (email, password) {
   return loginUserResponse
 }
 
+export async function loginUserWithToken (token) {
+  const loginUserWithTokenResponse = await fetch(endpoint + 'api/auth/me', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+    body: JSON.stringify({
+    })
+  })
+  return loginUserWithTokenResponse
+}
+
 export async function logoutUser (token) {
   const logoutUserResponse = await fetch(endpoint + 'api/auth/logout', {
     method: 'POST',
@@ -39,4 +52,24 @@ export async function getCurrentUser (token) {
     })
   })
   return getCurrentUserResponse
+}
+
+export async function getRoutines (token) {
+  const getRoutinesResponse = await fetch(endpoint + 'api/routines', {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
+  })
+  return getRoutinesResponse
+}
+
+export async function getCategories (token) {
+  const getCategoriesResponse = await fetch(endpoint + 'api/categories', {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
+  })
+  return getCategoriesResponse
 }

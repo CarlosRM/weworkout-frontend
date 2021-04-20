@@ -1,0 +1,12 @@
+.toolTipMessage{
+  padding: 0.25rem;
+  font-size: 0.8rem;
+}
+
+.symbol{
+  margin-right: 4px
+}
+
+.check{
+  color: var(--primaryColor);
+}

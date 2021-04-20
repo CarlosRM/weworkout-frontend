@@ -1,5 +1,11 @@
 .main {
   min-height: 100vh;
+  max-width: 100%;
   display: flex;
   align-items: center;
+  padding: 2rem;
+}
+
+.categoriesContainer {
+  max-width: 100%;
 }

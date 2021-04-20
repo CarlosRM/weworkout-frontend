@@ -1,0 +1,23 @@
+.routineSlider {
+  display: flex;
+  max-width: 100%;
+  overflow-x: hidden;
+  flex-wrap: wrap;
+}
+
+.routineSlider__expandMore {
+  width: 100%;
+}
+
+@media screen and (max-width: 500px) {
+  .routineSlider {
+    display: flex;
+    max-width: 100%;
+    overflow-x: scroll;
+    flex-wrap: nowrap;
+  }
+
+  .routineSlider__expandMore {
+    display: none;
+  }
+}

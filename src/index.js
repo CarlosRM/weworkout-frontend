@@ -18,6 +18,8 @@ import ProtectedRoute from './ProtectedRoute'
 import * as guards from './guards'
 import { selectEntireState } from './constants'
 import DashboardComponent from './modules/DashboardModule/components/DashboardComponent'
+import Cookies from 'universal-cookie'
+import { loginWithToken } from './modules/AuthModule/reducers/AuthReducer'
 
 const App = () => {
   const entireState = useSelector(selectEntireState)
@@ -28,6 +30,18 @@ const App = () => {
       dispatch({ type: 'resetState' })
     }
   }, [entireState.auth.logout.success])
+
+  useEffect(() => {
+    const token = new Cookies().get('WeWorkoutToken')
+    if (token === null || token === undefined) dispatch({ type: 'resetState' })
+    else {
+      dispatch(loginWithToken())
+    }
+  }, [])
+
+  useEffect(() => {
+    if (entireState.auth.loginWithToken.error) dispatch({ type: 'resetState' })
+  }, [entireState.auth.loginWithToken])
 
   return (
     <div>
