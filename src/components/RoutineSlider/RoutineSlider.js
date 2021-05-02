@@ -5,6 +5,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 import style from './RoutineSlider.css'
 import useWindowDimensions from '../../utils/hooks/useWindowDimensions'
+import { Link } from 'react-router-dom'
 
 const RoutineSlider = (props) => {
   const [threshold, setThreshold] = useState(4)
@@ -27,7 +28,10 @@ const RoutineSlider = (props) => {
 
   return (
     <div className={style.main}>
-        <h1>{props.title}</h1>
+        <div className={style.routineSlider__heading}>
+          <h1>{props.title}</h1>
+          <Link className={style.routineSlider__seeAll} to={`/${props.type}/${props.title}`}>Ver todo de {props.title}</Link>
+        </div>
         <div className={style.routineSlider}>
           {props.routines.map((routine, index) =>
             <RoutineCard key={routine.id} routine={routine} hide={index > getThreshold() && !expanded} />

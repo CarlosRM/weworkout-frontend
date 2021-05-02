@@ -63,6 +63,7 @@ export const loginWithToken = createAsyncThunk('auth/loginWithToken', async (dat
   const token = new Cookies().get('WeWorkoutToken')
   let loginResponse = await loginUserWithToken(token)
   const status = loginResponse.status
+  console.log(status)
   loginResponse = await loginResponse.json()
   console.log(loginResponse)
   if (status !== 200) {

@@ -1,0 +1,90 @@
+.main {
+  min-height: 100vh;
+  max-width: 100%;
+  padding: 80px 2rem 2rem 2rem;
+}
+
+.container {
+
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.rotateLeft {
+  transform: rotate(-90deg);
+}
+
+.displayFilters {
+  background: none;
+  border: none;
+  color: var(--primaryColor);
+  cursor: pointer;
+}
+
+.filterOverlay__wrapper {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  top: 0;
+  left: 0;
+}
+
+.filterOverlay {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  max-width: 50%;
+}
+
+.filter__list {
+  margin-bottom: 1rem;
+}
+
+.filterButton {
+  background: none;
+  border: 1px solid black;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.selected {
+  background-color: var(--primaryColor);
+  color: white;
+}
+
+button.filter__accept {
+  width: fit-content;
+  justify-self: center;
+  margin: auto;
+}
+
+.filters {
+  display: flex;
+}
+
+.appliedFilter {
+  display: flex;
+  background: none;
+  border: 1px solid black;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+  font-weight: bold;
+  cursor: pointer;
+  align-items: center;
+}

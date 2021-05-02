@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { VanillaButton } from '../../components/VanillaButton'
 import { selectEntireState } from '../../constants'
 import { isUserLoggedIn } from '../../guards'
 import useWindowDimensions from '../../utils/hooks/useWindowDimensions'
@@ -8,7 +8,7 @@ import { logout } from '../AuthModule/reducers/AuthReducer'
 
 import style from './HeaderComponent.css'
 
-const HeaderComponent = () => {
+const HeaderDesktop = () => {
   const entireState = useSelector(selectEntireState)
   const dispatch = useDispatch()
 
@@ -19,14 +19,10 @@ const HeaderComponent = () => {
   }
 
   return (
-    <div className={style.headerWrapper}>
+    <div>
       {isUserLoggedIn(entireState) &&
       <nav className={style.header}>
-        <Link to='/dashboard' className={style.header__link}>Home</Link>
-        <Link to='/search' className={style.header__link}>Buscar</Link>
-        <Link to='/favourites' className={style.header__link}>Favoritos</Link>
-        <Link className={style.header__link}>Perfil</Link>
-        <button className={style.header__link} onClick={handleLogout}>Logout</button>
+        <VanillaButton onClick={handleLogout}>Logout</VanillaButton>
       </nav>}
 
     </div>
@@ -34,4 +30,4 @@ const HeaderComponent = () => {
   )
 }
 
-export default HeaderComponent
+export default HeaderDesktop

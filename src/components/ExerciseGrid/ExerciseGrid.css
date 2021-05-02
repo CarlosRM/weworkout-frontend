@@ -1,0 +1,30 @@
+.exerciseSlider {
+  display: flex;
+  max-width: 100%;
+  overflow-x: hidden;
+  flex-wrap: wrap;
+}
+
+.exerciseSlider__heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--primaryColor);
+}
+
+.exerciseSlider__expandMore {
+  width: 100%;
+}
+
+@media screen and (max-width: 500px) {
+  .exerciseSlider {
+    display: flex;
+    max-width: 100%;
+    overflow-x: scroll;
+    flex-wrap: wrap;
+  }
+
+  .exerciseSlider__expandMore {
+    display: none;
+  }
+}

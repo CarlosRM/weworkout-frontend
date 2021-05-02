@@ -1,0 +1,30 @@
+.userSlider {
+  display: flex;
+  max-width: 100%;
+  overflow-x: hidden;
+  flex-wrap: wrap;
+}
+
+.userSlider__heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--primaryColor);
+}
+
+.userSlider__expandMore {
+  width: 100%;
+}
+
+@media screen and (max-width: 500px) {
+  .userSlider {
+    display: flex;
+    max-width: 100%;
+    overflow-x: scroll;
+    flex-wrap: wrap;
+  }
+
+  .userSlider__expandMore {
+    display: none;
+  }
+}

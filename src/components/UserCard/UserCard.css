@@ -24,18 +24,13 @@
   margin-left: 1rem;
 }
 
-.card__stats {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  margin-top: auto;
-}
-
-.card__stat {
+.card__user {
   display: flex;
   align-items: center;
-  margin-left: 0.25rem;
-  margin-right: 0.25rem;
+}
+
+.card__user h3 {
+  margin-left: 1rem;
 }
 
 @media screen and (max-width: 1500px) {

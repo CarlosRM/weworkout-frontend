@@ -14,19 +14,6 @@
 
 .routineSlider__expandMore {
   width: 100%;
-  border: none;
-  border-radius: 0.25rem;
-  margin-left: 2px;
-  margin-right: 2px;
-  cursor: pointer;
-}
-
-.routineSlider__expandMore:hover {
-  opacity: 0.75;
-}
-
-a.routineSlider__seeAll {
-  color: var(--primaryColor);
 }
 
 @media screen and (max-width: 500px) {
@@ -34,7 +21,7 @@ a.routineSlider__seeAll {
     display: flex;
     max-width: 100%;
     overflow-x: scroll;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
   }
 
   .routineSlider__expandMore {

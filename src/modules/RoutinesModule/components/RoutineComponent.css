@@ -1,0 +1,77 @@
+.main {
+  min-height: 100vh;
+  max-width: 100%;
+  padding: 80px 2rem 2rem 2rem;
+  display: flex;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 33%;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.routine__headingAuthor {
+  display: flex;
+  align-items: center;
+}
+
+.routine__headingAuthor span {
+  margin-left: 1rem;
+}
+
+.routine__headingCategories {
+  margin-top: 1rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.routine__stats {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.routine__stat {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+button.routine__control {
+  margin-right: 1rem;
+}
+
+.routine__exerciseCard, .routine__commentCard {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.routine__exercise {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.routine__commentAuthor {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.routine__commentAuthorName {
+  margin-left: 1rem;
+}
+
+.routine__commentDate {
+  display: block;
+  margin-left: auto;
+}
+
+.similar {
+  margin-bottom: 1rem;
+  display: block;
+}

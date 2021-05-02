@@ -20,6 +20,15 @@ import { selectEntireState } from './constants'
 import DashboardComponent from './modules/DashboardModule/components/DashboardComponent'
 import Cookies from 'universal-cookie'
 import { loginWithToken } from './modules/AuthModule/reducers/AuthReducer'
+import CategoryComponent from './modules/CategoriesModule/components/CategoryComponent'
+import BodypartComponent from './modules/BodypartModule/components/BodypartComponent'
+import FavouritesComponent from './modules/FavouriteModule/components/FavouritesComponent'
+import RoutineComponent from './modules/RoutinesModule/components/RoutineComponent'
+import { PersistGate } from 'redux-persist/integration/react'
+import persistStore from 'redux-persist/es/persistStore'
+import UserComponent from './modules/UserModule/components/UserComponent'
+import ExerciseComponent from './modules/ExerciseModule/components/ExerciseComponent'
+import SearchComponent from './modules/SearchModule/components/SearchComponent'
 
 const App = () => {
   const entireState = useSelector(selectEntireState)
@@ -56,17 +65,58 @@ const App = () => {
                 path="/login" component={LoginComponent} exact />
 
               <ProtectedRoute
-                functions={[guards.isUserLoggedOut]}
+                functions={[guards.isUserLoggedIn]}
                 appState={entireState}
-                redirect='/dashboard'
-                path="/" component={FrontPageComponent} exact />
+                redirect='/login'
+                path="/dashboard" component={DashboardComponent} exact />
 
               <ProtectedRoute
                 functions={[guards.isUserLoggedIn]}
                 appState={entireState}
                 redirect='/login'
-                path="/dashboard" component={DashboardComponent} exact />
-              <Redirect to="/" />
+                path="/favourites" component={FavouritesComponent} exact />
+
+              <ProtectedRoute
+                functions={[guards.isUserLoggedIn]}
+                appState={entireState}
+                redirect='/login'
+                path="/search" component={SearchComponent} exact />
+
+              <ProtectedRoute
+                functions={[guards.isUserLoggedIn]}
+                appState={entireState}
+                redirect='/login'
+                path="/bodypart/:name" component={BodypartComponent} exact />
+
+              <ProtectedRoute
+                functions={[guards.isUserLoggedIn]}
+                appState={entireState}
+                redirect='/login'
+                path="/category/:name" component={CategoryComponent} exact />
+
+              <ProtectedRoute
+                functions={[guards.isUserLoggedIn]}
+                appState={entireState}
+                redirect='/login'
+                path="/routine/:id" component={RoutineComponent} exact />
+
+              <ProtectedRoute
+                functions={[guards.isUserLoggedIn]}
+                appState={entireState}
+                redirect='/login'
+                path="/users/:id" component={UserComponent} exact />
+
+              <ProtectedRoute
+                functions={[guards.isUserLoggedIn]}
+                appState={entireState}
+                redirect='/login'
+                path="/exercise/:id" component={ExerciseComponent} exact />
+
+              <ProtectedRoute
+                functions={[guards.isUserLoggedOut]}
+                appState={entireState}
+                redirect='/dashboard'
+                path="/" component={FrontPageComponent} exact />
             </Switch>
           <FooterComponent />
         </Router>
@@ -76,8 +126,13 @@ const App = () => {
   )
 }
 
+const persistor = persistStore(store)
+
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <PersistGate loading={null} persistor={persistor}>
+      <App />
+    </PersistGate>
+
   </Provider>,
   document.querySelector('#root'))

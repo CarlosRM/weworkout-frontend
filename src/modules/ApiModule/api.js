@@ -73,3 +73,23 @@ export async function getCategories (token) {
   })
   return getCategoriesResponse
 }
+
+export async function getUsers (token) {
+  const getUsersResponse = await fetch(endpoint + 'api/users', {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
+  })
+  return getUsersResponse
+}
+
+export async function getExercises (token) {
+  const getExercisesResponse = await fetch(endpoint + 'api/exercises', {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
+  })
+  return getExercisesResponse
+}

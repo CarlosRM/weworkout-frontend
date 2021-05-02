@@ -3,11 +3,17 @@ import Cookies from 'universal-cookie'
 import AuthReducer from './modules/AuthModule/reducers/AuthReducer'
 import CategoriesReducer from './modules/CategoriesModule/reducers/CategoriesReducer'
 import RoutinesReducer from './modules/RoutinesModule/reducers/RoutinesReducer'
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
+import persistReducer from 'redux-persist/es/persistReducer'
+import UserReducer from './modules/UserModule/reducers/UserReducer'
+import ExerciseReducer from './modules/ExerciseModule/reducers/ExerciseReducer'
 
 const reducers = combineReducers({
   auth: AuthReducer,
   routines: RoutinesReducer,
-  categories: CategoriesReducer
+  categories: CategoriesReducer,
+  users: UserReducer,
+  exercises: ExerciseReducer
 })
 
 const rootReducer = (state, action) => {
@@ -18,8 +24,15 @@ const rootReducer = (state, action) => {
   return reducers(state, action)
 }
 
+const persistConfig = {
+  key: 'root',
+  storage
+}
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
+
 const store = configureStore({
-  reducer: rootReducer
+  reducer: persistedReducer
 })
 
 export default store
