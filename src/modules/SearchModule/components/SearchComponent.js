@@ -68,7 +68,6 @@ const SearchComponent = () => {
   }
 
   function search (text) {
-    console.log(text)
     if (text === '') {
       setRoutinesResults([])
       setExercisesResults([])
@@ -98,7 +97,6 @@ const SearchComponent = () => {
   }
 
   useEffect(() => {
-    console.log(searchText)
     search(searchText)
   }, [searchText, categoryFilters, bodypartsFilters])
 

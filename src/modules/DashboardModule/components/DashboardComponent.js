@@ -39,7 +39,7 @@ const DashboardComponent = () => {
 
   return (
     <div className={style.main}>
-        {isDataReady &&
+        {isDataReady() &&
           <div className={style.categoriesContainer}>
             <RoutineSlider title={'Brazo'} routines={getRoutinesFromBodypart('Brazo')} type='bodypart'/>
             <RoutineSlider title={'Pierna'} routines={getRoutinesFromBodypart('Pierna')} type='bodypart'/>

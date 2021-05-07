@@ -29,6 +29,12 @@ import persistStore from 'redux-persist/es/persistStore'
 import UserComponent from './modules/UserModule/components/UserComponent'
 import ExerciseComponent from './modules/ExerciseModule/components/ExerciseComponent'
 import SearchComponent from './modules/SearchModule/components/SearchComponent'
+import ProfileComponent from './modules/ProfileModule/components/ProfileComponent'
+import FollowersComponent from './modules/UserModule/components/FollowersComponent'
+import FolloweesComponent from './modules/UserModule/components/FolloweesComponent'
+import MyRoutinesComponent from './modules/RoutinesModule/components/MyRoutinesComponent'
+import AddRoutineComponent from './modules/RoutinesModule/components/AddRoutineComponent'
+import EditRoutineComponent from './modules/RoutinesModule/components/EditRoutineComponent'
 
 const App = () => {
   const entireState = useSelector(selectEntireState)
@@ -86,6 +92,30 @@ const App = () => {
                 functions={[guards.isUserLoggedIn]}
                 appState={entireState}
                 redirect='/login'
+                path="/profile" component={ProfileComponent} exact />
+
+              <ProtectedRoute
+                functions={[guards.isUserLoggedIn]}
+                appState={entireState}
+                redirect='/login'
+                path="/my-routines" component={MyRoutinesComponent} exact />
+
+              <ProtectedRoute
+                functions={[guards.isUserLoggedIn]}
+                appState={entireState}
+                redirect='/login'
+                path="/add-routine" component={AddRoutineComponent} exact />
+
+              <ProtectedRoute
+                functions={[guards.isUserLoggedIn]}
+                appState={entireState}
+                redirect='/login'
+                path="/edit-routine/:id" component={EditRoutineComponent} exact />
+
+              <ProtectedRoute
+                functions={[guards.isUserLoggedIn]}
+                appState={entireState}
+                redirect='/login'
                 path="/bodypart/:name" component={BodypartComponent} exact />
 
               <ProtectedRoute
@@ -105,6 +135,18 @@ const App = () => {
                 appState={entireState}
                 redirect='/login'
                 path="/users/:id" component={UserComponent} exact />
+
+              <ProtectedRoute
+                functions={[guards.isUserLoggedIn]}
+                appState={entireState}
+                redirect='/login'
+                path="/users/:id/followers" component={FollowersComponent} exact />
+
+              <ProtectedRoute
+                functions={[guards.isUserLoggedIn]}
+                appState={entireState}
+                redirect='/login'
+                path="/users/:id/followees" component={FolloweesComponent} exact />
 
               <ProtectedRoute
                 functions={[guards.isUserLoggedIn]}

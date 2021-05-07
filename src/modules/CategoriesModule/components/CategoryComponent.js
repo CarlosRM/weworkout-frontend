@@ -25,8 +25,6 @@ const CategoryComponent = (props) => {
   }, [])
 
   function findCategoryByName (name) {
-    console.log(name)
-    console.log(categoriesState.allCategories)
     return categoriesState.allCategories.find(el => el.name === name).id
   }
 

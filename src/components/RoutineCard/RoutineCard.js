@@ -10,12 +10,19 @@ import ChatIcon from '@material-ui/icons/Chat'
 import StarIcon from '@material-ui/icons/Star'
 import { withStyles } from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import { selectUsers } from '../../constants'
-import { useSelector } from 'react-redux'
+import { selectAuth, selectUsers } from '../../constants'
+import { useDispatch, useSelector } from 'react-redux'
+import { VanillaButton } from '../VanillaButton'
+import Cookies from 'universal-cookie'
+import { deleteRoutine } from '../../modules/RoutinesModule/reducers/RoutinesReducer'
+import { ThinButtonRed } from '../ThinButtonRed'
+import { ThinButton } from '../ThinButton'
+
+import DeleteIcon from '@material-ui/icons/Delete'
+import EditIcon from '@material-ui/icons/Edit'
 
 const CustomCard = withStyles((theme) => ({
   root: {
-    height: '100%'
   }
 }))(Card)
 
@@ -30,6 +37,7 @@ const CustomCardContent = withStyles((theme) => ({
 
 const RoutineCard = (props) => {
   const usersState = useSelector(selectUsers)
+  const authState = useSelector(selectAuth)
 
   return (
     <div className={`${style.card__wrapper} ${props.hide ? style.card__hide : style.card__show}`}>
@@ -42,7 +50,7 @@ const RoutineCard = (props) => {
               </Avatar>
               <h3 className={style.card__title}>{props.routine.name}</h3>
             </div>
-            <p>{props.routine.description}</p>
+            <p className={style.card__description}>{props.routine.description}</p>
             <div className={style.card__stats}>
               <div className={`${style.card__rating} ${style.card__stat}`}>
                 <StarIcon></StarIcon>
@@ -60,6 +68,12 @@ const RoutineCard = (props) => {
           </CustomCardContent>
         </CustomCard>
       </Link>
+      {props.myRoutines && authState.user.routines.includes(props.routine.id) &&
+      <div className={style.card__controls}>
+        <Link to={`/edit-routine/${props.routine.id}`}><ThinButton className={style.card__controlEdit}><EditIcon></EditIcon>Editar</ThinButton></Link>
+        <ThinButtonRed onClick={props.deleteRoutine}><DeleteIcon></DeleteIcon>Eliminar</ThinButtonRed>
+      </div>
+        }
     </div>
   )
 }

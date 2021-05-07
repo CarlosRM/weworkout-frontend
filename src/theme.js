@@ -36,6 +36,11 @@ const theme = createMuiTheme({
           }
         }
       }
+    },
+    MuiAvatar: {
+      colorDefault: {
+        backgroundColor: '#03a9f4'
+      }
     }
   }
 })

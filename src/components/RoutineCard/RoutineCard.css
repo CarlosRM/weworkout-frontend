@@ -22,6 +22,22 @@
 
 .card__title {
   margin-left: 1rem;
+  font-size: 1.2rem;
+  height: 3rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+
+.card__description {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  -webkit-box-orient: vertical;
+  height: 3.5rem;
 }
 
 .card__stats {
@@ -37,6 +53,22 @@
   margin-left: 0.25rem;
   margin-right: 0.25rem;
 }
+
+.card__controls {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card__controls > button,
+.card__controls > a {
+  flex: 0 0 48%;
+}
+
+button.card__controlEdit {
+  width: 100%;
+}
+
 
 @media screen and (max-width: 1500px) {
   .card__wrapper {

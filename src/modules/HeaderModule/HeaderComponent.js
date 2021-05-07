@@ -25,7 +25,7 @@ const HeaderComponent = () => {
         <Link to='/dashboard' className={style.header__link}>Home</Link>
         <Link to='/search' className={style.header__link}>Buscar</Link>
         <Link to='/favourites' className={style.header__link}>Favoritos</Link>
-        <Link className={style.header__link}>Perfil</Link>
+        <Link to='/profile' className={style.header__link}>Perfil</Link>
         <button className={style.header__link} onClick={handleLogout}>Logout</button>
       </nav>}
 

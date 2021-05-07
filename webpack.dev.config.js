@@ -2,6 +2,7 @@ const path = require('path')
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const { ProvidePlugin } = require('webpack')
 
 module.exports = {
   mode: 'development',
@@ -13,7 +14,17 @@ module.exports = {
     publicPath: '/'
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
+    alias: {
+      process: 'process/browser',
+      stream: 'stream-browserify',
+      zlib: 'browserify-zlib',
+      path: 'path-browserify'
+    },
+    fallback: {
+      fs: false,
+      crypto: false
+    }
   },
   module: {
     rules: [
@@ -80,6 +91,10 @@ module.exports = {
       filename: 'index.html',
       inject: 'body'
     }),
-    new MiniCssExtractPlugin()
+    new MiniCssExtractPlugin(),
+    new ProvidePlugin({
+      process: 'process/browser',
+      Buffer: ['buffer', 'Buffer'],
+    })
   ]
 }

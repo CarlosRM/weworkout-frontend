@@ -1,24 +1,140 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { selectCategories, selectRoutines, selectUsers } from '../../../constants'
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectAuth, selectCategories, selectRoutines, selectUsers } from '../../../constants'
 import { VanillaButton } from '../../../components/VanillaButton'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
+import FavoriteIcon from '@material-ui/icons/Favorite'
 import StarBorderIcon from '@material-ui/icons/StarBorder'
 import VisibilityIcon from '@material-ui/icons/Visibility'
 import ChatIcon from '@material-ui/icons/Chat'
 import StarIcon from '@material-ui/icons/Star'
 
 import style from './RoutineComponent.css'
-import { Avatar, Card, CardContent } from '@material-ui/core'
+import { Avatar, Card, CardContent, TextField } from '@material-ui/core'
 import { Link } from 'react-router-dom'
+import Cookies from 'universal-cookie'
+import { addFavorite, removeFavorite } from '../../AuthModule/reducers/AuthReducer'
+
+import { Page, Text, View, Document, StyleSheet, PDFViewer, PDFDownloadLink } from '@react-pdf/renderer'
+import { ThinButton } from '../../../components/ThinButton'
+
+import AddIcon from '@material-ui/icons/Add'
+import { addComment } from '../reducers/RoutinesReducer'
 
 const RoutineComponent = (props) => {
+  const authState = useSelector(selectAuth)
   const routinesState = useSelector(selectRoutines)
   const categoriesState = useSelector(selectCategories)
   const usersState = useSelector(selectUsers)
 
+  const [newComment, setNewComment] = useState('')
+  const [showCommentBox, setShowCommentBox] = useState(false)
+
   const routine = routinesState.allRoutines.find(el => el.id === parseInt(props.match.params.id))
+
+  const dispatch = useDispatch()
+
+  function handleAddFavorite () {
+    const data = {
+      token: new Cookies().get('WeWorkoutToken'),
+      userId: authState.user.id,
+      routineId: routine.id
+    }
+    dispatch(addFavorite(data))
+  }
+
+  function handleRemoveFavorite () {
+    const data = {
+      token: new Cookies().get('WeWorkoutToken'),
+      userId: authState.user.id,
+      routineId: routine.id
+    }
+    dispatch(removeFavorite(data))
+  }
+
+  // Create styles
+  const styles = StyleSheet.create({
+    page: {
+      flexDirection: 'column',
+      backgroundColor: 'white'
+    },
+    section: {
+      margin: 10,
+      padding: 10
+    },
+    h1: {
+      fontSize: 28,
+      fontWeight: 'bold'
+    },
+    h2: {
+      fontSize: 24,
+      fontWeight: 'bold'
+
+    },
+    card: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      padding: 16,
+      border: '1px solid grey',
+      alignContent: 'center',
+      marginTop: 16,
+      fontSize: 12
+    },
+    p: {
+      marginTop: 16,
+      fontSize: 12
+    }
+  })
+
+  // Create Document Component
+  const MyDocument = () => (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        <View style={styles.section}>
+          <Text style={styles.h1}>Creada por {routine.name}</Text>
+          <Text style={styles.p}>{usersState.allUsers.find(user => user.id === routine.user_id).name}</Text>
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.h2}>Descripción</Text>
+          <Text style={styles.p}>{routine.description}</Text>
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.h2}>Ejercicios</Text>
+          {routine.sets.map((el, idx) =>
+            <View key={el.id} style={styles.card}>
+              <Text>{el.exercise.name}</Text>
+              <Text>Repeticiones: {el.repetitions}</Text>
+            </View>
+          )}
+        </View>
+        </Page>
+    </Document>
+  )
+
+  const handleInputChange = (e) => {
+    setNewComment(e.target.value)
+  }
+
+  const handlePublishComment = () => {
+    const data = {
+      token: new Cookies().get('WeWorkoutToken'),
+      id: routine.id,
+      body: {
+        user_id: authState.user.id,
+        routine_id: routine.id,
+        content: newComment
+      }
+    }
+    dispatch(addComment(data))
+    setShowCommentBox(false)
+  }
+
+  function sortByDate (a, b) {
+    // Turn your strings into dates, and then subtract them
+    // to get a value that is either negative, positive, or zero.
+    return new Date(b.updated_at) - new Date(a.updated_at);
+  }
 
   return (
     <div className={style.main}>
@@ -57,8 +173,15 @@ const RoutineComponent = (props) => {
               </div>
             </div>
             <div className={style.routine__controls}>
-                <VanillaButton className={style.routine__control}>Descargar</VanillaButton>
-                <VanillaButton className={style.routine__control}><FavoriteBorderIcon></FavoriteBorderIcon></VanillaButton>
+                <VanillaButton className={style.routine__control}>
+                  <PDFDownloadLink document={<MyDocument />} fileName={`${routine.name}.pdf`}>
+                    {({ blob, url, loading, error }) =>
+                      loading ? 'Descargar en PDF' : 'Descargar en PDF'
+                    }
+                  </PDFDownloadLink>
+                </VanillaButton>
+                {!authState.user.favourite_routines.includes(routine.id) && <VanillaButton onClick={handleAddFavorite} className={style.routine__control}><FavoriteBorderIcon></FavoriteBorderIcon></VanillaButton>}
+                {authState.user.favourite_routines.includes(routine.id) && <VanillaButton onClick={handleRemoveFavorite} className={style.routine__control}><FavoriteIcon></FavoriteIcon></VanillaButton>}
                 <VanillaButton className={style.routine__control}><StarBorderIcon></StarBorderIcon></VanillaButton>
             </div>
           </div>
@@ -83,10 +206,27 @@ const RoutineComponent = (props) => {
           </Link>
           )}
         </div>
-        <h2>Comentarios</h2>
+        <div className={style.routine__commentsHeading}>
+          <h2>Comentarios</h2>
+          {!showCommentBox && <ThinButton className={style.routine__addComment} onClick={() => setShowCommentBox(true)}><AddIcon></AddIcon>Añadir comentario</ThinButton>}
+        </div>
+        {showCommentBox && <div className={style.routine__addCommentBox}>
+              <TextField
+                variant='outlined'
+                label='Nuevo comentario'
+                name='comentario'
+                type='textarea'
+                multiline
+                rows={4}
+                rowsMax={4}
+                value={newComment}
+                onChange={e => handleInputChange(e)}
+              />
+            <ThinButton className={style.routine__publishNewComment} onClick={handlePublishComment}>Publicar</ThinButton>
+        </div>}
         <div className={style.routine__comments}>
           {routine.comments.length === 0 && <p>Aún no hay comentarios.</p>}
-          {routine.comments.length > 0 && routine.comments.map((el, idx) =>
+          {routine.comments.length > 0 && [...routine.comments].sort(sortByDate).map((el, idx) =>
             <Card className={style.routine__commentCard} key={idx}>
               <CardContent>
                 <div className={style.routine__comment}>

@@ -93,3 +93,95 @@ export async function getExercises (token) {
   })
   return getExercisesResponse
 }
+
+export async function addFavoriteRoutine (token, userId, routineId) {
+  const addFavoriteRoutineResponse = await fetch(endpoint + 'api/users/' + userId + '/addFavorite/' + routineId, {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
+  })
+  return addFavoriteRoutineResponse
+}
+
+export async function removeFavoriteRoutine (token, userId, routineId) {
+  const removeFavoriteRoutineResponse = await fetch(endpoint + 'api/users/' + userId + '/removeFavorite/' + routineId, {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
+  })
+  return removeFavoriteRoutineResponse
+}
+
+export async function deleteUserRoutine (token, routineId) {
+  const deleteUserRoutineResponse = await fetch(endpoint + 'api/routines/' + routineId, {
+    method: 'DELETE',
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
+  })
+  return deleteUserRoutineResponse
+}
+
+export async function addUserRoutine (token, body) {
+  const addUserRoutineResponse = await fetch(endpoint + 'api/routines/', {
+    method: 'POST',
+    headers: {
+      Authorization: 'Bearer ' + token,
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  })
+  return addUserRoutineResponse
+}
+
+export async function editUserRoutine (token, body, id) {
+  const editUserRoutineResponse = await fetch(endpoint + 'api/routines/' + id, {
+    method: 'PUT',
+    headers: {
+      Authorization: 'Bearer ' + token,
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  })
+  return editUserRoutineResponse
+}
+
+export async function addUserComment (token, body, id) {
+  const addUserCommentResponse = await fetch(endpoint + 'api/routines/' + id + '/comment', {
+    method: 'POST',
+    headers: {
+      Authorization: 'Bearer ' + token,
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  })
+  return addUserCommentResponse
+}
+
+export async function followUser (token, id, followeeId) {
+  const followUserRoutineResponse = await fetch(endpoint + 'api/users/' + id + '/follow/' + followeeId, {
+    method: 'POST',
+    headers: {
+      Authorization: 'Bearer ' + token,
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
+  return followUserRoutineResponse
+}
+export async function unfollowUser (token, id, followeeId) {
+  const unfollowUserRoutineResponse = await fetch(endpoint + 'api/users/' + id + '/unfollow/' + followeeId, {
+    method: 'POST',
+    headers: {
+      Authorization: 'Bearer ' + token,
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
+  return unfollowUserRoutineResponse
+}

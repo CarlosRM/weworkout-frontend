@@ -8,88 +8,92 @@
 .column {
   display: flex;
   flex-direction: column;
-  flex: 0 0 33%;
   padding: 1rem;
   box-sizing: border-box;
 }
 
-.routine__headingAuthor {
+.firstColumn {
+  flex: 0 0 30%;
+}
+
+.secondColumn {
+  flex: 0 0 40%;
+}
+
+.thirdColumn {
+  flex: 0 0 30%;
+}
+
+.user__headingAuthor {
   display: flex;
   align-items: center;
 }
 
-.routine__headingAuthor span {
+.user__headingAuthor span {
   margin-left: 1rem;
 }
 
-.routine__headingCategories {
+.user__headingCategories {
   margin-top: 1rem;
   font-size: 1.25rem;
   font-weight: bold;
 }
 
-.routine__stats {
+.user__stats {
   margin-top: 1rem;
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
 }
 
-.routine__stat {
+.user__stat {
   display: flex;
   align-items: center;
   margin-right: 1rem;
 }
 
-button.routine__control {
+button.user__control {
   margin-right: 1rem;
 }
 
-button.routine__control a {
-  color: white;
-}
-
-.routine__exerciseCard, .routine__commentCard {
+.user__exerciseCard, .user__commentCard {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
 
-.routine__exercise {
+.user__exercise {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.routine__commentAuthor {
+.user__commentAuthor {
   display: flex;
   align-items: center;
   width: 100%;
 }
 
-.routine__commentAuthorName {
+.user__commentAuthorName {
   margin-left: 1rem;
 }
 
-.routine__commentDate {
+.user__commentDate {
   display: block;
   margin-left: auto;
 }
 
-.similar {
-  margin-bottom: 1rem;
-  display: block;
+button.profile__link {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
 }
 
-.routine__commentsHeading {
-  display: flex;
-  align-items: center;
+a.profile__link {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
 }
 
-button.routine__addComment {
-  margin-left: 1rem;
-}
-
-.routine__addCommentBox {
-  display: flex;
-  flex-direction: column;
+button.profile__button {
+  width: 100%;
 }
