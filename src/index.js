@@ -35,6 +35,7 @@ import FolloweesComponent from './modules/UserModule/components/FolloweesCompone
 import MyRoutinesComponent from './modules/RoutinesModule/components/MyRoutinesComponent'
 import AddRoutineComponent from './modules/RoutinesModule/components/AddRoutineComponent'
 import EditRoutineComponent from './modules/RoutinesModule/components/EditRoutineComponent'
+import EditProfileComponent from './modules/ProfileModule/components/EditProfileComponent'
 
 const App = () => {
   const entireState = useSelector(selectEntireState)
@@ -93,6 +94,12 @@ const App = () => {
                 appState={entireState}
                 redirect='/login'
                 path="/profile" component={ProfileComponent} exact />
+
+              <ProtectedRoute
+                functions={[guards.isUserLoggedIn]}
+                appState={entireState}
+                redirect='/login'
+                path="/profile/edit" component={EditProfileComponent} exact />
 
               <ProtectedRoute
                 functions={[guards.isUserLoggedIn]}

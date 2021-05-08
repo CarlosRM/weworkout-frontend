@@ -1,0 +1,28 @@
+.main {
+  min-height: 100vh;
+  max-width: 100%;
+  padding: 80px 2rem 2rem 2rem;
+}
+
+.editUserWrapper {
+  width: 100%;
+  display: flex;
+}
+
+.editUserForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.editUser__title {
+  padding-left: 1rem;
+  margin-bottom: 0;
+}
+
+.column {
+  flex: 0 0 33%;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  box-sizing: border-box;
+}

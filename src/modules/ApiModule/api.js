@@ -185,3 +185,31 @@ export async function unfollowUser (token, id, followeeId) {
   })
   return unfollowUserRoutineResponse
 }
+
+export async function addUser (token, id, body) {
+  const addUserRoutineResponse = await fetch(endpoint + 'api/users/', {
+    method: 'POST',
+    headers: {
+      Authorization: 'Bearer ' + token,
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+
+  })
+  return addUserRoutineResponse
+}
+
+export async function editUser (token, id, body) {
+  const editUserRoutineResponse = await fetch(endpoint + 'api/users/' + id, {
+    method: 'PUT',
+    headers: {
+      Authorization: 'Bearer ' + token,
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+
+  })
+  return editUserRoutineResponse
+}

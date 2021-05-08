@@ -48,7 +48,7 @@ const ProfileComponent = (props) => {
             <h2>¿Quién soy?</h2>
             <p>{user.description}</p>
           </div>
-          <VanillaButton>Editar datos</VanillaButton>
+          <Link className={style.profile__edit} to={'/profile/edit'}><VanillaButton>Editar datos</VanillaButton></Link>
       </div>
       <div className={`${style.column} ${style.secondColumn}`}>
       </div>

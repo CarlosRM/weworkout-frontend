@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { addFavoriteRoutine, followUser, getUsers, loginUser, loginUserWithToken, logoutUser, removeFavoriteRoutine, unfollowUser } from '../../ApiModule/api'
+import { addFavoriteRoutine, followUser, getUsers, addUser, editUser, loginUser, loginUserWithToken, logoutUser, removeFavoriteRoutine, unfollowUser } from '../../ApiModule/api'
 import Cookies from 'universal-cookie'
 import { getAllUsers } from '../../UserModule/reducers/UserReducer'
 
@@ -41,6 +41,18 @@ const initialState = {
     loading: false
   },
   unfollow: {
+    success: false,
+    error: false,
+    errorMsg: null,
+    loading: false
+  },
+  add: {
+    success: false,
+    error: false,
+    errorMsg: null,
+    loading: false
+  },
+  edit: {
     success: false,
     error: false,
     errorMsg: null,
@@ -217,6 +229,54 @@ export const unfollow = createAsyncThunk('auth/unfollow', async (data, thunkAPI)
   return response
 })
 
+/**
+ * Add user
+ */
+export const add = createAsyncThunk('auth/add', async (data, thunkAPI) => {
+  const response = {
+    status: 200,
+    message: '',
+    user: null,
+    error: null
+  }
+
+  let addResponse = await addUser(data.token, data.id, data.body)
+  const status = addResponse.status
+  addResponse = await addResponse.json()
+  if (status !== 200) {
+    response.status = status
+    response.error = addResponse.error
+    return response
+  } else {
+    response.user = addResponse.data
+  }
+  return response
+})
+
+/**
+ * Edit user
+ */
+export const edit = createAsyncThunk('auth/edit', async (data, thunkAPI) => {
+  const response = {
+    status: 200,
+    message: '',
+    user: null,
+    error: null
+  }
+
+  let editResponse = await editUser(data.token, data.id, data.body)
+  const status = editResponse.status
+  editResponse = await editResponse.json()
+  if (status !== 200) {
+    response.status = status
+    response.error = editResponse.error
+    return response
+  } else {
+    response.user = editResponse.data
+  }
+  return response
+})
+
 const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -383,6 +443,51 @@ const authSlice = createSlice({
         } else {
           state.unfollow.error = true
           state.unfollow.errorMsg = action.payload.error
+        }
+      })
+      .addCase(add.rejected, (state, action) => {
+        state.add.loading = false
+        state.add.error = true
+      })
+      .addCase(add.pending, (state, action) => {
+        state = {
+          ...initialState,
+          add: {
+            ...initialState.add,
+            loading: true
+          }
+        }
+      })
+      .addCase(add.fulfilled, (state, action) => {
+        state.add.loading = false
+        if (action.payload.status === 200) {
+          state.add.success = true
+        } else {
+          state.add.error = true
+          state.add.errorMsg = action.payload.error
+        }
+      })
+      .addCase(edit.rejected, (state, action) => {
+        state.edit.loading = false
+        state.edit.error = true
+      })
+      .addCase(edit.pending, (state, action) => {
+        state = {
+          ...initialState,
+          edit: {
+            ...initialState.edit,
+            loading: true
+          }
+        }
+      })
+      .addCase(edit.fulfilled, (state, action) => {
+        state.edit.loading = false
+        if (action.payload.status === 200) {
+          state.edit.success = true
+          state.user = action.payload.user
+        } else {
+          state.edit.error = true
+          state.edit.errorMsg = action.payload.error
         }
       })
   }

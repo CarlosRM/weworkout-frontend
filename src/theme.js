@@ -41,6 +41,18 @@ const theme = createMuiTheme({
       colorDefault: {
         backgroundColor: '#03a9f4'
       }
+    },
+    MuiFormGroup: {
+      root: {
+        flexDirection: 'row'
+      }
+    },
+    MuiRadio: {
+      colorSecondary: {
+        '&$checked': {
+          color: 'var(--primaryColor)'
+        }
+      }
     }
   }
 })
