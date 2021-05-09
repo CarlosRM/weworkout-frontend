@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { addFavoriteRoutine, followUser, getUsers, addUser, editUser, loginUser, loginUserWithToken, logoutUser, removeFavoriteRoutine, unfollowUser } from '../../ApiModule/api'
 import Cookies from 'universal-cookie'
 import { getAllUsers } from '../../UserModule/reducers/UserReducer'
+import { NotificationManager } from 'react-notifications'
 
 const initialState = {
   login: {
@@ -46,7 +47,7 @@ const initialState = {
     errorMsg: null,
     loading: false
   },
-  add: {
+  register: {
     success: false,
     error: false,
     errorMsg: null,
@@ -83,6 +84,7 @@ export const login = createAsyncThunk('auth/login', async (data) => {
     const cookies = new Cookies()
     cookies.set('WeWorkoutToken', token, { path: '/' })
     response.user = loginResponse.user
+    NotificationManager.success('Sesión iniciada')
   }
   return response
 })
@@ -128,6 +130,7 @@ export const logout = createAsyncThunk('auth/logout', async (data, thunkAPI) => 
     response.error = logoutResponse.error
     return response
   }
+  NotificationManager.success('Sesión cerrada')
   return response
 })
 
@@ -148,8 +151,10 @@ export const addFavorite = createAsyncThunk('auth/addFavorite', async (data) => 
   if (status !== 200) {
     response.status = status
     response.error = addFavoriteResponse.error
+    NotificationManager.error('Error añadiendo rutina a favoritos')
     return response
   } else {
+    NotificationManager.success('Rutina añadida a favoritos con éxito')
     response.routineId = addFavoriteResponse.data.id
   }
   return response
@@ -172,8 +177,10 @@ export const removeFavorite = createAsyncThunk('auth/removeFavorite', async (dat
   if (status !== 200) {
     response.status = status
     response.error = removeFavoriteResponse.error
+    NotificationManager.success('Error eliminando rutina de favoritos')
     return response
   } else {
+    NotificationManager.success('Rutina eliminada de favoritos con éxito')
     response.routineId = removeFavoriteResponse.data.id
   }
   return response
@@ -196,8 +203,10 @@ export const follow = createAsyncThunk('auth/follow', async (data, thunkAPI) => 
   if (status !== 200) {
     response.status = status
     response.error = followResponse.error
+    NotificationManager.errpr('Ha habido un error siguiendo al usuario')
     return response
   } else {
+    NotificationManager.success('Usuario seguido con éxito')
     response.userId = followResponse.data
     thunkAPI.dispatch(getAllUsers())
   }
@@ -221,8 +230,10 @@ export const unfollow = createAsyncThunk('auth/unfollow', async (data, thunkAPI)
   if (status !== 200) {
     response.status = status
     response.error = unfollowResponse.error
+    NotificationManager.errpr('Ha habido un error dejando de seguir al usuario')
     return response
   } else {
+    NotificationManager.success('Usuario dejado de seguir con éxito')
     response.userId = unfollowResponse.data
     thunkAPI.dispatch(getAllUsers())
   }
@@ -230,9 +241,9 @@ export const unfollow = createAsyncThunk('auth/unfollow', async (data, thunkAPI)
 })
 
 /**
- * Add user
+ * Register user
  */
-export const add = createAsyncThunk('auth/add', async (data, thunkAPI) => {
+export const register = createAsyncThunk('auth/register', async (data, thunkAPI) => {
   const response = {
     status: 200,
     message: '',
@@ -240,15 +251,17 @@ export const add = createAsyncThunk('auth/add', async (data, thunkAPI) => {
     error: null
   }
 
-  let addResponse = await addUser(data.token, data.id, data.body)
-  const status = addResponse.status
-  addResponse = await addResponse.json()
+  let registerResponse = await addUser(data.body)
+  const status = registerResponse.status
+  registerResponse = await registerResponse.json()
   if (status !== 200) {
     response.status = status
-    response.error = addResponse.error
+    response.error = registerResponse.error
+    NotificationManager.success('Ha habido un error en el proceso de registro')
     return response
   } else {
-    response.user = addResponse.data
+    NotificationManager.success('Registro completado con éxito. Inicia sesión')
+    response.user = registerResponse.data
   }
   return response
 })
@@ -270,8 +283,10 @@ export const edit = createAsyncThunk('auth/edit', async (data, thunkAPI) => {
   if (status !== 200) {
     response.status = status
     response.error = editResponse.error
+    NotificationManager.success('Ha habido un error editando tus datos')
     return response
   } else {
+    NotificationManager.success('Tus datos han sido editados con éxito')
     response.user = editResponse.data
   }
   return response
@@ -445,26 +460,26 @@ const authSlice = createSlice({
           state.unfollow.errorMsg = action.payload.error
         }
       })
-      .addCase(add.rejected, (state, action) => {
-        state.add.loading = false
-        state.add.error = true
+      .addCase(register.rejected, (state, action) => {
+        state.register.loading = false
+        state.register.error = true
       })
-      .addCase(add.pending, (state, action) => {
+      .addCase(register.pending, (state, action) => {
         state = {
           ...initialState,
-          add: {
-            ...initialState.add,
+          register: {
+            ...initialState.register,
             loading: true
           }
         }
       })
-      .addCase(add.fulfilled, (state, action) => {
-        state.add.loading = false
+      .addCase(register.fulfilled, (state, action) => {
+        state.register.loading = false
         if (action.payload.status === 200) {
-          state.add.success = true
+          state.register.success = true
         } else {
-          state.add.error = true
-          state.add.errorMsg = action.payload.error
+          state.register.error = true
+          state.register.errorMsg = action.payload.error
         }
       })
       .addCase(edit.rejected, (state, action) => {

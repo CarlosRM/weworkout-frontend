@@ -39,6 +39,22 @@ const DashboardComponent = () => {
 
   return (
     <div className={style.main}>
+        <div className={style.dashboard__banners}>
+          <div className={`${style.dashboard__banner} ${style.banner1}`}>
+            <img src='/src/assets/images/banner1.jfif'></img>
+            <div className={`${style.dashboard__bannerOverlay}`}>
+              <h3>Ejemplo de rutina patrocinada</h3>
+              <p>Así se vería una rutina patrocinada por algún sponsor o marca, o algún anuncio</p>
+            </div>
+          </div>
+          <div className={`${style.dashboard__banner} ${style.banner1}`}>
+            <img src='/src/assets/images/banner2.jfif'></img>
+            <div className={`${style.dashboard__bannerOverlay}`}>
+              <h3>Ejemplo de rutina patrocinada</h3>
+              <p>Así se vería una rutina patrocinada por algún sponsor o marca, o algún anuncio</p>
+            </div>
+          </div>
+        </div>
         {isDataReady() &&
           <div className={style.categoriesContainer}>
             <RoutineSlider title={'Brazo'} routines={getRoutinesFromBodypart('Brazo')} type='bodypart'/>

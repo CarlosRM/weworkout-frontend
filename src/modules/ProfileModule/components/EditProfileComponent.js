@@ -42,7 +42,7 @@ const EditProfileComponent = (props) => {
       required: true
     },
     birthday: {
-      value: user.birthdate,
+      value: new Date(user.birthdate),
       dirty: true,
       required: true
     },

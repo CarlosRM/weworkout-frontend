@@ -53,6 +53,14 @@ const theme = createMuiTheme({
           color: 'var(--primaryColor)'
         }
       }
+    },
+    MuiRating: {
+      root: {
+        color: 'var(--primaryColor)',
+        '& .MuiRating-label': {
+          fontSize: '3rem'
+        }
+      }
     }
   }
 })

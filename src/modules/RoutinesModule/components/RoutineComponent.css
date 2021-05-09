@@ -93,3 +93,27 @@ button.routine__addComment {
   display: flex;
   flex-direction: column;
 }
+
+.routine__ratingWrapper {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0,0.8);
+}
+
+.routine__ratingModal {
+  padding: 1rem;
+  background: white;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+button.routine__ratingButton {
+  margin-top: 1rem;
+}

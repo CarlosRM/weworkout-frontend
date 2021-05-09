@@ -37,13 +37,15 @@ const MyRoutinesComponent = (props) => {
   function handleDeleteRoutine () {
     const data = {
       token: new Cookies().get('WeWorkoutToken'),
-      routineId: routineToDelete
+      id: routineToDelete
     }
     dispatch(deleteRoutine(data))
     hideDeleteModal()
   }
 
   const user = authState.user
+
+  const myRoutines = routinesState.allRoutines.filter(el => el.user_id === authState.user.id)
 
   return (
     <div className={style.main}>
@@ -59,7 +61,8 @@ const MyRoutinesComponent = (props) => {
           <h1>Mis rutinas</h1>
           <Link to='/add-routine'><ThinButton className={style.myRoutines__addRoutine}><AddIcon></AddIcon>Añadir rutina</ThinButton></Link>
         </div>
-        <RoutineGrid deleteRoutine={displayDeleteModal} myRoutines={true} routines={routinesState.allRoutines.filter(el => el.user_id === authState.user.id)} />
+        {myRoutines.length > 0 && <RoutineGrid deleteRoutine={displayDeleteModal} myRoutines={true} routines={myRoutines} />}
+        {myRoutines.length === 0 && <p>Todavía no has creado ninguna rutina de entrenamiento.</p>}
         {showDeleteModal && <div className={style.delete__modalWrapper}>
           <div className={style.delete__modal}>
             <p>¿Estás seguro de eliminar esta rutina? Esta acción es irreversible.</p>

@@ -4,8 +4,57 @@
   display: flex;
   align-items: center;
   padding: 80px 2rem 2rem 2rem;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .categoriesContainer {
   max-width: 100%;
+}
+
+.dashboard__banners {
+  display: flex;
+  height: 50vh;
+  padding: 1rem;
+  width: 100%;
+}
+
+.dashboard__banner {
+  height: 100%;
+  border-radius: 0.5rem;
+  flex: 0 0 50%;
+  padding: 1rem;
+  box-sizing: border-box;
+  position: relative;
+  cursor: pointer;
+}
+
+.dashboard__banner img {
+  object-fit: cover;
+  border-radius: 0.5rem;
+  height: 100%;
+  width: 100%;
+  object-position: top;
+}
+
+.dashboard__bannerOverlay {
+  position: absolute;
+  width: calc(100% - 2rem);
+  height: calc(100% - 2rem);
+  background-color: rgba(0, 0, 0, 0.7);
+  background: linear-gradient(to top, black, transparent);
+  top: 1rem;
+  left: 1rem;
+  border-radius: 0.5rem;
+  padding: 1rem 2rem;
+  box-sizing: border-box;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  display: none;
+}
+
+.dashboard__banner:hover .dashboard__bannerOverlay {
+  display: flex;
 }

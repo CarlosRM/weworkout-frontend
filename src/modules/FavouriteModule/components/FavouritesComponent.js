@@ -18,11 +18,19 @@ const FavouritesComponent = () => {
     return routinesState.allRoutines.filter(el => authState.user.favourite_routines.includes(el.id))
   }
 
+  const favouriteRoutines = getFavouriteRoutines()
+
   return (
     <div className={style.main}>
         {isDataReady &&
           <div className={style.categoriesContainer}>
-            <RoutineGrid title={'Favoritos'} routines={getFavouriteRoutines()} />
+            {favouriteRoutines.length > 0 && <RoutineGrid title={'Favoritos'} routines={favouriteRoutines} />}
+            {favouriteRoutines.length === 0 &&
+              <div>
+                <h1>Favoritos</h1>
+                <p>Aún no tienes favoritos</p>
+              </div>
+            }
           </div>
         }
     </div>

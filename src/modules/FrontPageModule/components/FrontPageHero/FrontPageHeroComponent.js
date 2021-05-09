@@ -10,8 +10,8 @@ const FrontPageHeroComponent = () => {
         <h1 className={style.hero__title}>
           Únete a la mayor comunidad de fitness
         </h1>
-        <Link to='/login'>
-          <VanillaButton size='large'>Iniciar sesión</VanillaButton>
+        <Link to='/register'>
+          <VanillaButton size='large'>Registrarse</VanillaButton>
         </Link>
       </div>
     </div>

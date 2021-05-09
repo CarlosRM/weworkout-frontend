@@ -62,13 +62,13 @@ const RoutineCard = (props) => {
               </div>
               <div className={`${style.card__views} ${style.card__stat}`}>
                 <VisibilityIcon></VisibilityIcon>
-                <span></span>
+                <span>{props.routine.visualizations}</span>
               </div>
             </div>
           </CustomCardContent>
         </CustomCard>
       </Link>
-      {props.myRoutines && authState.user.routines.includes(props.routine.id) &&
+      {props.myRoutines && props.routine.user_id === authState.user.id &&
       <div className={style.card__controls}>
         <Link to={`/edit-routine/${props.routine.id}`}><ThinButton className={style.card__controlEdit}><EditIcon></EditIcon>Editar</ThinButton></Link>
         <ThinButtonRed onClick={props.deleteRoutine}><DeleteIcon></DeleteIcon>Eliminar</ThinButtonRed>

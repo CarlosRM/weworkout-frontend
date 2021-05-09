@@ -36,6 +36,9 @@ import MyRoutinesComponent from './modules/RoutinesModule/components/MyRoutinesC
 import AddRoutineComponent from './modules/RoutinesModule/components/AddRoutineComponent'
 import EditRoutineComponent from './modules/RoutinesModule/components/EditRoutineComponent'
 import EditProfileComponent from './modules/ProfileModule/components/EditProfileComponent'
+import RegisterComponent from './modules/AuthModule/components/LoginComponent/RegisterComponent'
+import './third-party/third-party/Notifications/Notifications.css'
+import { NotificationContainer } from 'react-notifications'
 
 const App = () => {
   const entireState = useSelector(selectEntireState)
@@ -62,6 +65,7 @@ const App = () => {
   return (
     <div>
       <ThemeProvider theme={theme}>
+        <NotificationContainer/>
         <Router>
           <HeaderComponent />
             <Switch>
@@ -70,6 +74,12 @@ const App = () => {
                 appState={entireState}
                 redirect='/dashboard'
                 path="/login" component={LoginComponent} exact />
+
+              <ProtectedRoute
+                functions={[guards.isUserLoggedOut]}
+                appState={entireState}
+                redirect='/dashboard'
+                path="/register" component={RegisterComponent} exact />
 
               <ProtectedRoute
                 functions={[guards.isUserLoggedIn]}

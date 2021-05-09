@@ -110,6 +110,7 @@ const SearchComponent = () => {
           name='username'
           type='text'
           value={searchText}
+          autoComplete='off'
           onChange={e => handleInputChange(e)}
         >
         </TextField>

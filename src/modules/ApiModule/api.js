@@ -163,6 +163,19 @@ export async function addUserComment (token, body, id) {
   return addUserCommentResponse
 }
 
+export async function addUserRating (token, body, id) {
+  const addUserRatingResponse = await fetch(endpoint + 'api/routines/' + id + '/rating', {
+    method: 'POST',
+    headers: {
+      Authorization: 'Bearer ' + token,
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  })
+  return addUserRatingResponse
+}
+
 export async function followUser (token, id, followeeId) {
   const followUserRoutineResponse = await fetch(endpoint + 'api/users/' + id + '/follow/' + followeeId, {
     method: 'POST',
@@ -186,11 +199,10 @@ export async function unfollowUser (token, id, followeeId) {
   return unfollowUserRoutineResponse
 }
 
-export async function addUser (token, id, body) {
+export async function addUser (body) {
   const addUserRoutineResponse = await fetch(endpoint + 'api/users/', {
     method: 'POST',
     headers: {
-      Authorization: 'Bearer ' + token,
       Accept: 'application/json',
       'Content-Type': 'application/json'
     },

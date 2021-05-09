@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { NotificationManager } from 'react-notifications'
 import Cookies from 'universal-cookie'
-import { addUserRoutine, deleteUserRoutine, getRoutines, editUserRoutine, addUserComment } from '../../ApiModule/api'
+import { addUserRoutine, deleteUserRoutine, getRoutines, editUserRoutine, addUserComment, addUserRating } from '../../ApiModule/api'
 
 const initialState = {
   getAllRoutines: {
@@ -28,6 +29,12 @@ const initialState = {
     loading: false
   },
   addComment: {
+    success: false,
+    error: false,
+    errorMsg: null,
+    loading: false
+  },
+  addRating: {
     success: false,
     error: false,
     errorMsg: null,
@@ -77,15 +84,17 @@ export const addRoutine = createAsyncThunk('auth/addRoutine', async (data) => {
   if (status !== 201) {
     response.status = status
     response.error = addRoutineResponse.error
+    NotificationManager.error('Ha habido un error añadiendo tu rutina')
     return response
   } else {
     response.routine = addRoutineResponse.data
+    NotificationManager.success('Rutina añadida con éxito')
   }
   return response
 })
 
 /**
- * Add routine
+ * Edit routine
  */
 export const editRoutine = createAsyncThunk('auth/editRoutine', async (data) => {
   const response = {
@@ -101,9 +110,11 @@ export const editRoutine = createAsyncThunk('auth/editRoutine', async (data) => 
   if (status !== 201) {
     response.status = status
     response.error = editRoutineResponse.error
+    NotificationManager.error('Ha habido un error editando tu rutina')
     return response
   } else {
     response.routine = editRoutineResponse.data
+    NotificationManager.success('Rutina editada con éxito')
   }
   return response
 })
@@ -119,15 +130,17 @@ export const deleteRoutine = createAsyncThunk('auth/deleteRoutine', async (data)
     error: null
   }
 
-  let deleteRoutineResponse = await deleteUserRoutine(data.token, data.body, data.id)
+  let deleteRoutineResponse = await deleteUserRoutine(data.token, data.id)
   const status = deleteRoutineResponse.status
   deleteRoutineResponse = await deleteRoutineResponse.json()
   if (status !== 200) {
     response.status = status
     response.error = deleteRoutineResponse.error
+    NotificationManager.error('Ha habido un error eliminando tu rutina')
     return response
   } else {
     response.routineId = deleteRoutineResponse.data.id
+    NotificationManager.success('Rutina eliminada con éxito')
   }
   return response
 })
@@ -149,9 +162,36 @@ export const addComment = createAsyncThunk('auth/addComment', async (data) => {
   if (status !== 201) {
     response.status = status
     response.error = addCommentResponse.error
+    NotificationManager.error('Ha habido un error publicando tu comentario')
     return response
   } else {
+    NotificationManager.success('Comentario publicado con éxito')
     response.routine = addCommentResponse.data
+  }
+  return response
+})
+
+/**
+ * Add rating
+ */
+export const addRating = createAsyncThunk('auth/addRating', async (data) => {
+  const response = {
+    status: 201,
+    message: '',
+    routine: null,
+    error: null
+  }
+
+  let addRatingResponse = await addUserRating(data.token, data.body, data.id)
+  const status = addRatingResponse.status
+  addRatingResponse = await addRatingResponse.json()
+  if (status !== 201) {
+    response.status = status
+    response.error = addRatingResponse.error
+    return response
+  } else {
+    NotificationManager.success('Rating actualizado')
+    response.routine = addRatingResponse.data
   }
   return response
 })
@@ -268,7 +308,6 @@ const routinesSlice = createSlice({
       .addCase(addComment.fulfilled, (state, action) => {
         state.addComment.loading = false
         if (action.payload.status === 201) {
-          console.log(action.payload)
           state.addComment.success = true
           state.allRoutines = [...state.allRoutines.filter(el => el.id !== action.payload.routine.id), action.payload.routine]
         } else {
@@ -279,6 +318,29 @@ const routinesSlice = createSlice({
       .addCase(addComment.rejected, (state, action) => {
         state.addComment.loading = false
         state.addComment.error = true
+      })
+      .addCase(addRating.pending, (state, action) => {
+        state = {
+          ...initialState,
+          addRating: {
+            ...initialState.addRating,
+            loading: true
+          }
+        }
+      })
+      .addCase(addRating.fulfilled, (state, action) => {
+        state.addRating.loading = false
+        if (action.payload.status === 201) {
+          state.addRating.success = true
+          state.allRoutines = [...state.allRoutines.filter(el => el.id !== action.payload.routine.id), action.payload.routine]
+        } else {
+          state.addRating.error = true
+          state.addRating.errorMsg = action.payload.error
+        }
+      })
+      .addCase(addRating.rejected, (state, action) => {
+        state.addRating.loading = false
+        state.addRating.error = true
       })
   }
 })

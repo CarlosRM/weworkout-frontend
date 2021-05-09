@@ -11,7 +11,7 @@ import ChatIcon from '@material-ui/icons/Chat'
 import StarIcon from '@material-ui/icons/Star'
 
 import style from './RoutineComponent.css'
-import { Avatar, Card, CardContent, TextField } from '@material-ui/core'
+import { Avatar, Box, Card, CardContent, TextField, Typography } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import Cookies from 'universal-cookie'
 import { addFavorite, removeFavorite } from '../../AuthModule/reducers/AuthReducer'
@@ -20,13 +20,17 @@ import { Page, Text, View, Document, StyleSheet, PDFViewer, PDFDownloadLink } fr
 import { ThinButton } from '../../../components/ThinButton'
 
 import AddIcon from '@material-ui/icons/Add'
-import { addComment } from '../reducers/RoutinesReducer'
+import { addComment, addRating } from '../reducers/RoutinesReducer'
+import Rating from '@material-ui/lab/Rating'
 
 const RoutineComponent = (props) => {
   const authState = useSelector(selectAuth)
   const routinesState = useSelector(selectRoutines)
   const categoriesState = useSelector(selectCategories)
   const usersState = useSelector(selectUsers)
+
+  const [rating, setRating] = useState(3)
+  const [showRating, setShowRating] = useState(false)
 
   const [newComment, setNewComment] = useState('')
   const [showCommentBox, setShowCommentBox] = useState(false)
@@ -51,6 +55,18 @@ const RoutineComponent = (props) => {
       routineId: routine.id
     }
     dispatch(removeFavorite(data))
+  }
+
+  function handleRate () {
+    const data = {
+      token: new Cookies().get('WeWorkoutToken'),
+      id: routine.id,
+      body: {
+        rating: rating
+      }
+    }
+    dispatch(addRating(data))
+    setShowRating(false)
   }
 
   // Create styles
@@ -169,7 +185,7 @@ const RoutineComponent = (props) => {
               </div>
               <div className={`${style.routine__views} ${style.routine__stat}`}>
                 <VisibilityIcon></VisibilityIcon>
-                <span></span>
+                <span>{routine.visualizations}</span>
               </div>
             </div>
             <div className={style.routine__controls}>
@@ -182,7 +198,7 @@ const RoutineComponent = (props) => {
                 </VanillaButton>
                 {!authState.user.favourite_routines.includes(routine.id) && <VanillaButton onClick={handleAddFavorite} className={style.routine__control}><FavoriteBorderIcon></FavoriteBorderIcon></VanillaButton>}
                 {authState.user.favourite_routines.includes(routine.id) && <VanillaButton onClick={handleRemoveFavorite} className={style.routine__control}><FavoriteIcon></FavoriteIcon></VanillaButton>}
-                <VanillaButton className={style.routine__control}><StarBorderIcon></StarBorderIcon></VanillaButton>
+                <VanillaButton onClick={() => setShowRating(true)} className={style.routine__control}><StarBorderIcon></StarBorderIcon></VanillaButton>
             </div>
           </div>
           <div className={style.routine__notes}>
@@ -260,6 +276,21 @@ const RoutineComponent = (props) => {
           </Link>
           )}
       </div>
+
+      {showRating && <div className={style.routine__ratingWrapper}>
+          <div className={style.routine__ratingModal}>
+            <h3>Puntuación</h3>
+            <Rating
+              size='large'
+              name="simple-controlled"
+              value={rating}
+              onChange={(event, newValue) => {
+                setRating(newValue)
+              }}
+            />
+            <ThinButton onClick={handleRate} className={style.routine__ratingButton}>Puntuar</ThinButton>
+          </div>
+      </div>}
     </div>
   )
 }
