@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import Cookies from 'universal-cookie'
-import { getExercises, getUsers } from '../../ApiModule/api'
+import { getExercises } from '../../ApiModule/api'
 
 const initialState = {
   getAllExercises: {

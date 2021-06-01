@@ -26,6 +26,7 @@
 
 a.routineSlider__seeAll {
   color: var(--primaryColor);
+  text-align: end;
 }
 
 @media screen and (max-width: 500px) {

@@ -1,15 +1,10 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import { useDispatch } from 'react-redux'
-import Cookies from 'universal-cookie'
-import { deleteRoutine } from '../../modules/RoutinesModule/reducers/RoutinesReducer'
 import RoutineCard from '../RoutineCard/RoutineCard'
 
 import style from './RoutineGrid.css'
 
 const RoutineGrid = (props) => {
-  const dispatch = useDispatch()
-
   return (
     <div className={style.main}>
         {props.title !== undefined && <div className={style.routineSlider__heading}>

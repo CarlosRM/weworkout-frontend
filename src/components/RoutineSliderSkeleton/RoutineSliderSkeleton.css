@@ -1,0 +1,44 @@
+.main {
+  width: 100%;
+}
+
+.skeletonSlider {
+  display: flex;
+  max-width: 100%;
+  overflow-x: hidden;
+  flex-wrap: wrap;
+}
+
+.skeleton__heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.skeleton__seeAll {
+  border-radius: 0.25rem;
+  text-align: end;
+}
+
+.skeletonTitle {
+  margin-left: 0.25rem;
+  margin-bottom: 1rem;
+  border-radius: 0.25rem;
+  margin-top: 1rem;
+}
+
+.skeletonWrapper {
+  padding: 0.25rem;
+  box-sizing: border-box;
+}
+
+.skeleton {
+  border-radius: 0.5rem;
+}
+
+.skeletonButton {
+  border-radius: 0.25rem;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+  margin-top: 1rem;
+}

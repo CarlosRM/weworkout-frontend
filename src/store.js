@@ -7,13 +7,16 @@ import storage from 'redux-persist/lib/storage' // defaults to localStorage for 
 import persistReducer from 'redux-persist/es/persistReducer'
 import UserReducer from './modules/UserModule/reducers/UserReducer'
 import ExerciseReducer from './modules/ExerciseModule/reducers/ExerciseReducer'
+import WorkoutReducer from './modules/WorkoutModule/reducers/WorkoutReducer'
+import thunk from 'redux-thunk'
 
 const reducers = combineReducers({
   auth: AuthReducer,
   routines: RoutinesReducer,
   categories: CategoriesReducer,
   users: UserReducer,
-  exercises: ExerciseReducer
+  exercises: ExerciseReducer,
+  workouts: WorkoutReducer
 })
 
 const rootReducer = (state, action) => {
@@ -32,7 +35,8 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const store = configureStore({
-  reducer: persistedReducer
+  reducer: persistedReducer,
+  middleware: [thunk]
 })
 
 export default store

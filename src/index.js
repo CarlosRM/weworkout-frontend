@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
+
 import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import {
   BrowserRouter as Router,
-  Switch,
-  Redirect
+  Switch
 } from 'react-router-dom'
 import style from './index.css'
 import FooterComponent from './modules/FooterModule/FooterComponent'
@@ -39,6 +40,11 @@ import EditProfileComponent from './modules/ProfileModule/components/EditProfile
 import RegisterComponent from './modules/AuthModule/components/LoginComponent/RegisterComponent'
 import './third-party/third-party/Notifications/Notifications.css'
 import { NotificationContainer } from 'react-notifications'
+import WorkoutComponent from './modules/WorkoutModule/components/WorkoutComponent'
+import AddWorkoutComponent from './modules/WorkoutModule/components/AddWorkoutComponent'
+import EditWorkoutComponent from './modules/WorkoutModule/components/EditWorkoutComponent'
+import GraphsProgressionComponent from './modules/WorkoutModule/components/GraphsProgressionComponent'
+import ScrollToTop from './utils/hooks/scrollToTop'
 
 const App = () => {
   const entireState = useSelector(selectEntireState)
@@ -68,6 +74,7 @@ const App = () => {
         <NotificationContainer/>
         <Router>
           <HeaderComponent />
+            <ScrollToTop />
             <Switch>
               <ProtectedRoute
                 functions={[guards.isUserLoggedOut]}
@@ -128,6 +135,30 @@ const App = () => {
                 appState={entireState}
                 redirect='/login'
                 path="/edit-routine/:id" component={EditRoutineComponent} exact />
+
+              <ProtectedRoute
+                functions={[guards.isUserLoggedIn]}
+                appState={entireState}
+                redirect='/login'
+                path="/my-workouts" component={WorkoutComponent} exact />
+
+              <ProtectedRoute
+                functions={[guards.isUserLoggedIn]}
+                appState={entireState}
+                redirect='/login'
+                path="/add-workout" component={AddWorkoutComponent} exact />
+
+              <ProtectedRoute
+                functions={[guards.isUserLoggedIn]}
+                appState={entireState}
+                redirect='/login'
+                path="/edit-workout/:id" component={EditWorkoutComponent} exact />
+
+              <ProtectedRoute
+                functions={[guards.isUserLoggedIn]}
+                appState={entireState}
+                redirect='/login'
+                path="/workout-progression/" component={GraphsProgressionComponent} exact />
 
               <ProtectedRoute
                 functions={[guards.isUserLoggedIn]}

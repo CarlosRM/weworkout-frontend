@@ -8,12 +8,10 @@ import useWindowDimensions from '../../utils/hooks/useWindowDimensions'
 import { Link } from 'react-router-dom'
 
 const RoutineSlider = (props) => {
-  const [threshold, setThreshold] = useState(4)
   const [expanded, setExpanded] = useState(false)
   const { width } = useWindowDimensions()
 
   function handleShowMoreClick () {
-    setThreshold(10)
     setExpanded(true)
   }
 

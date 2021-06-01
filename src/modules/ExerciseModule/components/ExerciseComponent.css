@@ -6,6 +6,7 @@
 
 .content {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .exercise__title {
@@ -53,4 +54,28 @@
 
 .disclaimer {
   font-size: 0.6rem;
+}
+
+
+@media screen and (max-width: 1200px) {
+  .firstColumn,
+  .secondColumn,
+  .thirdColumn {
+    flex: 0 0 50%;
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 800px) {
+
+  .exercise__title {
+    padding-left: 0;
+  }
+
+  .firstColumn,
+  .secondColumn,
+  .thirdColumn {
+    flex: 0 0 100%;
+    padding: 0;
+  }
 }

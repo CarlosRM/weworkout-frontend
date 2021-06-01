@@ -36,8 +36,19 @@ button.delete__modalControl {
 .myRoutines__heading {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 button.myRoutines__addRoutine {
   margin-left: 1rem;
+}
+
+@media screen and (max-width: 800px) {
+  .myRoutines__heading h1 {
+    flex: 0 0 100%;
+  }
+
+  .myRoutines__heading button {
+    margin-left: 0;
+  }
 }

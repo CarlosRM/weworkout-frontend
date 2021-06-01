@@ -207,7 +207,7 @@ const LoginComponent = () => {
           />
           </Tooltip>
 
-         {authState.login.error && <p className={style.login__error}>{authState.login.errorMsg}</p>}
+         {authState.login.error && <p className={style.login__error}>{authState.login.errorMsg !== null ? authState.login.errorMsg : 'Ha ocurrido un error.'}</p>}
         <VanillaButton variant="contained" color="primary" type='submit' disabled={authState.login.loading || !canSubmit()} className={style['loginForm__button--primary']}>
            {!authState.login.loading && 'Iniciar sesión'}
            {authState.login.loading && <CircularProgress size={24}/>}

@@ -3,6 +3,7 @@
   max-width: 100%;
   padding: 80px 2rem 2rem 2rem;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .column {
@@ -44,6 +45,7 @@
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .user__stat {
@@ -96,4 +98,20 @@ a.profile__link {
 
 button.profile__button {
   width: 100%;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.graphs {
+  max-width: 70%;
+  margin: auto;
+}
+
+@media screen and (max-width: 800px) {
+  .firstColumn,
+  .secondColumn,
+  .thirdColumn {
+    flex: 0 0 100%;
+    padding: 0;
+  }
 }

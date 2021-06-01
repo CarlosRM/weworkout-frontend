@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { NotificationManager } from 'react-notifications'
 import Cookies from 'universal-cookie'
-import { addUserRoutine, deleteUserRoutine, getRoutines, editUserRoutine, addUserComment, addUserRating } from '../../ApiModule/api'
+import { addUserRoutine, deleteUserRoutine, getRoutines, editUserRoutine, addUserComment, addUserRating, addUserVisualization } from '../../ApiModule/api'
 
 const initialState = {
   getAllRoutines: {
@@ -35,6 +35,12 @@ const initialState = {
     loading: false
   },
   addRating: {
+    success: false,
+    error: false,
+    errorMsg: null,
+    loading: false
+  },
+  addVisualization: {
     success: false,
     error: false,
     errorMsg: null,
@@ -196,6 +202,30 @@ export const addRating = createAsyncThunk('auth/addRating', async (data) => {
   return response
 })
 
+/**
+ * Add visualization
+ */
+export const addVisualization = createAsyncThunk('auth/addVisualization', async (data) => {
+  const response = {
+    status: 201,
+    message: '',
+    routine: null,
+    error: null
+  }
+
+  let addVisualizationResponse = await addUserVisualization(data.token, data.routineId)
+  const status = addVisualizationResponse.status
+  addVisualizationResponse = await addVisualizationResponse.json()
+  if (status !== 201) {
+    response.status = status
+    response.error = addVisualizationResponse.error
+    return response
+  } else {
+    response.routine = addVisualizationResponse.data
+  }
+  return response
+})
+
 const routinesSlice = createSlice({
   name: 'routines',
   initialState,
@@ -341,6 +371,29 @@ const routinesSlice = createSlice({
       .addCase(addRating.rejected, (state, action) => {
         state.addRating.loading = false
         state.addRating.error = true
+      })
+      .addCase(addVisualization.pending, (state, action) => {
+        state = {
+          ...initialState,
+          addVisualization: {
+            ...initialState.addVisualization,
+            loading: true
+          }
+        }
+      })
+      .addCase(addVisualization.fulfilled, (state, action) => {
+        state.addVisualization.loading = false
+        if (action.payload.status === 201) {
+          state.addVisualization.success = true
+          state.allRoutines = [...state.allRoutines.filter(el => el.id !== action.payload.routine.id), action.payload.routine]
+        } else {
+          state.addVisualization.error = true
+          state.addVisualization.errorMsg = action.payload.error
+        }
+      })
+      .addCase(addVisualization.rejected, (state, action) => {
+        state.addVisualization.loading = false
+        state.addVisualization.error = true
       })
   }
 })

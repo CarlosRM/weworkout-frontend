@@ -3,13 +3,12 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Cookies from 'universal-cookie'
 import { VanillaButton } from '../../../components/VanillaButton'
-import { selectAuth, selectCategories, selectExercises, selectRoutines } from '../../../constants'
-import { addRoutine, editRoutine } from '../../RoutinesModule/reducers/RoutinesReducer'
+import { selectAuth } from '../../../constants'
 import * as validators from '../../../validators'
 import ToolTipMessage from '../../../components/ToolTipMessage/ToolTipMessage'
 
 import style from './EditProfileComponent.css'
-import { Card, CardContent, FormControlLabel, Radio, RadioGroup, Select, TextField, Tooltip } from '@material-ui/core'
+import { FormControlLabel, Radio, RadioGroup, TextField, Tooltip } from '@material-ui/core'
 
 import {
   KeyboardDatePicker, MuiPickersUtilsProvider
@@ -17,15 +16,11 @@ import {
 
 import DateFnsUtils from '@date-io/date-fns'
 
-import ClearIcon from '@material-ui/icons/Clear'
 import { Redirect } from 'react-router'
 import { edit } from '../../AuthModule/reducers/AuthReducer'
 
 const EditProfileComponent = (props) => {
-  const routinesState = useSelector(selectRoutines)
   const authState = useSelector(selectAuth)
-  const exercisesState = useSelector(selectExercises)
-  const categoriesState = useSelector(selectCategories)
 
   const user = authState.user
 
@@ -171,7 +166,6 @@ const EditProfileComponent = (props) => {
         description: formData.description.value
       }
     }
-    console.log(data)
     dispatch(edit(data))
     setFormData({ ...formData, submitted: true })
   }

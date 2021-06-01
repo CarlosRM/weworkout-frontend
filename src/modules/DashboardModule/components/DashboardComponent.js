@@ -8,6 +8,8 @@ import { selectRoutines, selectCategories, selectUsers } from '../../../constant
 import style from './DashboardComponent.css'
 import RoutineSlider from '../../../components/RoutineSlider/RoutineSlider'
 import { getAllExercises } from '../../ExerciseModule/reducers/ExerciseReducer'
+import { getAllMyWorkouts } from '../../WorkoutModule/reducers/WorkoutReducer'
+import RoutineSliderSkeleton from '../../../components/RoutineSliderSkeleton/RoutineSliderSkeleton'
 
 const DashboardComponent = () => {
   const dispatch = useDispatch()
@@ -35,6 +37,7 @@ const DashboardComponent = () => {
     dispatch(getAllCategories())
     dispatch(getAllUsers())
     dispatch(getAllExercises())
+    dispatch(getAllMyWorkouts())
   }, [])
 
   return (
@@ -63,6 +66,15 @@ const DashboardComponent = () => {
             {categoriesState.allCategories.map((el, index) =>
               <RoutineSlider key={el.id} title={el.name} routines={getRoutinesFromCategory(el.id)} type='category'/>
             )}
+          </div>
+        }
+        {!isDataReady() &&
+          <div className={style.skeletonWrapper}>
+            <RoutineSliderSkeleton></RoutineSliderSkeleton>
+            <RoutineSliderSkeleton></RoutineSliderSkeleton>
+            <RoutineSliderSkeleton></RoutineSliderSkeleton>
+            <RoutineSliderSkeleton></RoutineSliderSkeleton>
+            <RoutineSliderSkeleton></RoutineSliderSkeleton>
           </div>
         }
     </div>

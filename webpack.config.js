@@ -23,7 +23,17 @@ module.exports = {
     publicPath: '/'
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
+    alias: {
+      process: 'process/browser',
+      stream: 'stream-browserify',
+      zlib: 'browserify-zlib',
+      path: 'path-browserify'
+    },
+    fallback: {
+      fs: false,
+      crypto: false
+    }
   },
   module: {
     rules: [

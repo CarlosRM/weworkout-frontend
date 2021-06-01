@@ -13,7 +13,6 @@ import ToolTipMessage from '../../../../components/ToolTipMessage/ToolTipMessage
 import DateFnsUtils from '@date-io/date-fns'
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import { register } from '../../reducers/AuthReducer'
-import Cookies from 'universal-cookie'
 import { Redirect } from 'react-router'
 
 const RegisterComponent = () => {

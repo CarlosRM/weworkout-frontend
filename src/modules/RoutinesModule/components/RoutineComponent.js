@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectAuth, selectCategories, selectRoutines, selectUsers } from '../../../constants'
 import { VanillaButton } from '../../../components/VanillaButton'
@@ -11,17 +11,18 @@ import ChatIcon from '@material-ui/icons/Chat'
 import StarIcon from '@material-ui/icons/Star'
 
 import style from './RoutineComponent.css'
-import { Avatar, Box, Card, CardContent, TextField, Typography } from '@material-ui/core'
+import { Avatar, Card, CardContent, TextField } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import Cookies from 'universal-cookie'
 import { addFavorite, removeFavorite } from '../../AuthModule/reducers/AuthReducer'
 
-import { Page, Text, View, Document, StyleSheet, PDFViewer, PDFDownloadLink } from '@react-pdf/renderer'
+import { Page, Text, View, Document, StyleSheet, PDFDownloadLink } from '@react-pdf/renderer'
 import { ThinButton } from '../../../components/ThinButton'
 
 import AddIcon from '@material-ui/icons/Add'
-import { addComment, addRating } from '../reducers/RoutinesReducer'
+import { addComment, addRating, addVisualization } from '../reducers/RoutinesReducer'
 import Rating from '@material-ui/lab/Rating'
+import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf'
 
 const RoutineComponent = (props) => {
   const authState = useSelector(selectAuth)
@@ -69,6 +70,15 @@ const RoutineComponent = (props) => {
     setShowRating(false)
   }
 
+  useEffect(() => {
+    const data = {
+      token: new Cookies().get('WeWorkoutToken'),
+      userId: authState.user.id,
+      routineId: routine.id
+    }
+    dispatch(addVisualization(data))
+  }, [])
+
   // Create styles
   const styles = StyleSheet.create({
     page: {
@@ -108,8 +118,8 @@ const RoutineComponent = (props) => {
     <Document>
       <Page size="A4" style={styles.page}>
         <View style={styles.section}>
-          <Text style={styles.h1}>Creada por {routine.name}</Text>
-          <Text style={styles.p}>{usersState.allUsers.find(user => user.id === routine.user_id).name}</Text>
+          <Text style={styles.h1}>{routine.name}</Text>
+          <Text style={styles.p}>Creada por {usersState.allUsers.find(user => user.id === routine.user_id).name}</Text>
         </View>
         <View style={styles.section}>
           <Text style={styles.h2}>Descripción</Text>
@@ -149,7 +159,7 @@ const RoutineComponent = (props) => {
   function sortByDate (a, b) {
     // Turn your strings into dates, and then subtract them
     // to get a value that is either negative, positive, or zero.
-    return new Date(b.updated_at) - new Date(a.updated_at);
+    return new Date(b.updated_at) - new Date(a.updated_at)
   }
 
   return (
@@ -189,13 +199,12 @@ const RoutineComponent = (props) => {
               </div>
             </div>
             <div className={style.routine__controls}>
-                <VanillaButton className={style.routine__control}>
-                  <PDFDownloadLink document={<MyDocument />} fileName={`${routine.name}.pdf`}>
-                    {({ blob, url, loading, error }) =>
-                      loading ? 'Descargar en PDF' : 'Descargar en PDF'
-                    }
-                  </PDFDownloadLink>
-                </VanillaButton>
+                <PDFDownloadLink document={<MyDocument />} fileName={`${routine.name}.pdf`}>
+                  <VanillaButton className={style.routine__control}>
+                        <PictureAsPdfIcon />
+                  </VanillaButton>
+                </PDFDownloadLink>
+
                 {!authState.user.favourite_routines.includes(routine.id) && <VanillaButton onClick={handleAddFavorite} className={style.routine__control}><FavoriteBorderIcon></FavoriteBorderIcon></VanillaButton>}
                 {authState.user.favourite_routines.includes(routine.id) && <VanillaButton onClick={handleRemoveFavorite} className={style.routine__control}><FavoriteIcon></FavoriteIcon></VanillaButton>}
                 <VanillaButton onClick={() => setShowRating(true)} className={style.routine__control}><StarBorderIcon></StarBorderIcon></VanillaButton>

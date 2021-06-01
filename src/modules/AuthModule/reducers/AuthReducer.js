@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { addFavoriteRoutine, followUser, getUsers, addUser, editUser, loginUser, loginUserWithToken, logoutUser, removeFavoriteRoutine, unfollowUser } from '../../ApiModule/api'
+import { addFavoriteRoutine, followUser, addUser, editUser, loginUser, loginUserWithToken, logoutUser, removeFavoriteRoutine, unfollowUser } from '../../ApiModule/api'
 import Cookies from 'universal-cookie'
 import { getAllUsers } from '../../UserModule/reducers/UserReducer'
 import { NotificationManager } from 'react-notifications'

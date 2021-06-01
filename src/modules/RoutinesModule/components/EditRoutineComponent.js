@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Cookies from 'universal-cookie'
 import { VanillaButton } from '../../../components/VanillaButton'
 import { selectAuth, selectCategories, selectExercises, selectRoutines } from '../../../constants'
-import { addRoutine, editRoutine } from '../reducers/RoutinesReducer'
+import { editRoutine } from '../reducers/RoutinesReducer'
 import * as validators from '../../../validators'
 import ToolTipMessage from '../../../components/ToolTipMessage/ToolTipMessage'
 

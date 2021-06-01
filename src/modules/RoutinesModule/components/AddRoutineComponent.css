@@ -7,6 +7,7 @@
 .createRoutineWrapper {
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .createRoutineForm {
@@ -49,4 +50,16 @@ div.select {
 
 svg.clearCategory {
   margin-left: auto;
+}
+
+@media screen and (max-width: 800px) {
+  .column {
+    flex: 0 0 100%;
+    padding: 0;
+  }
+
+  .createRoutine__title {
+    padding-left: 0;
+    margin-bottom: 0;
+  }
 }

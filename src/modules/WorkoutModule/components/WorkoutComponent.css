@@ -1,0 +1,34 @@
+.main {
+  min-height: 100vh;
+  max-width: 100%;
+  padding: 80px 2rem 2rem 2rem;
+}
+
+.workouts__controls {
+  display: flex;
+  align-items: center;
+}
+
+div.workouts__control {
+  margin-right: 1rem;
+}
+
+.myWorkouts__heading {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+button.myWorkouts__addWorkout {
+  margin-left: 1rem;
+}
+
+@media screen and (max-width: 800px) {
+  .myWorkouts__heading h1 {
+    flex: 0 0 100%;
+  }
+
+  .myWorkouts__heading button {
+    margin-left: 0;
+  }
+}

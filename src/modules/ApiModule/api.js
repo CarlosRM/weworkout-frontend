@@ -41,19 +41,6 @@ export async function logoutUser (token) {
   return logoutUserResponse
 }
 
-export async function getCurrentUser (token) {
-  const getCurrentUserResponse = await fetch(endpoint + 'api/auth/me', {
-    method: 'POST',
-    headers: {
-      Authorization: 'Bearer ' + token
-    },
-    body: JSON.stringify({
-
-    })
-  })
-  return getCurrentUserResponse
-}
-
 export async function getRoutines (token) {
   const getRoutinesResponse = await fetch(endpoint + 'api/routines', {
     method: 'GET',
@@ -96,7 +83,7 @@ export async function getExercises (token) {
 
 export async function addFavoriteRoutine (token, userId, routineId) {
   const addFavoriteRoutineResponse = await fetch(endpoint + 'api/users/' + userId + '/addFavorite/' + routineId, {
-    method: 'GET',
+    method: 'POST',
     headers: {
       Authorization: 'Bearer ' + token
     }
@@ -106,7 +93,7 @@ export async function addFavoriteRoutine (token, userId, routineId) {
 
 export async function removeFavoriteRoutine (token, userId, routineId) {
   const removeFavoriteRoutineResponse = await fetch(endpoint + 'api/users/' + userId + '/removeFavorite/' + routineId, {
-    method: 'GET',
+    method: 'POST',
     headers: {
       Authorization: 'Bearer ' + token
     }
@@ -176,6 +163,18 @@ export async function addUserRating (token, body, id) {
   return addUserRatingResponse
 }
 
+export async function addUserVisualization (token, id) {
+  const addUserVisualizationResponse = await fetch(endpoint + 'api/routines/' + id + '/visualization', {
+    method: 'POST',
+    headers: {
+      Authorization: 'Bearer ' + token,
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
+  return addUserVisualizationResponse
+}
+
 export async function followUser (token, id, followeeId) {
   const followUserRoutineResponse = await fetch(endpoint + 'api/users/' + id + '/follow/' + followeeId, {
     method: 'POST',
@@ -224,4 +223,50 @@ export async function editUser (token, id, body) {
 
   })
   return editUserRoutineResponse
+}
+
+export async function getWorkouts (token) {
+  const getWorkoutsResponse = await fetch(endpoint + 'api/workouts', {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
+  })
+  return getWorkoutsResponse
+}
+
+export async function deleteUserWorkout (token, routineId) {
+  const deleteUserWorkoutResponse = await fetch(endpoint + 'api/workouts/' + routineId, {
+    method: 'DELETE',
+    headers: {
+      Authorization: 'Bearer ' + token
+    }
+  })
+  return deleteUserWorkoutResponse
+}
+
+export async function addUserWorkout (token, body) {
+  const addUserWorkoutResponse = await fetch(endpoint + 'api/workouts/', {
+    method: 'POST',
+    headers: {
+      Authorization: 'Bearer ' + token,
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  })
+  return addUserWorkoutResponse
+}
+
+export async function editUserWorkout (token, body, id) {
+  const editUserWorkoutResponse = await fetch(endpoint + 'api/workouts/' + id, {
+    method: 'PUT',
+    headers: {
+      Authorization: 'Bearer ' + token,
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  })
+  return editUserWorkoutResponse
 }

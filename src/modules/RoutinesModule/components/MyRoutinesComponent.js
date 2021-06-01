@@ -1,10 +1,8 @@
 /* eslint-disable react/prop-types */
-import { Button } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Cookies from 'universal-cookie'
 import RoutineGrid from '../../../components/RoutineGrid/RoutineGrid'
-import { VanillaButton } from '../../../components/VanillaButton'
 import { selectAuth, selectRoutines } from '../../../constants'
 import { deleteRoutine } from '../reducers/RoutinesReducer'
 
@@ -54,7 +52,7 @@ const MyRoutinesComponent = (props) => {
               <div className={style.user__stats}>
                 <span>{user.followers.length} SEGUIDORES · </span>
                 <span>{user.followees.length} SEGUIDOS · </span>
-                <span>{user.routines.length} RUTINAS</span>
+                <span>{myRoutines.length} RUTINAS</span>
               </div>
         </div>
         <div className={style.myRoutines__heading}>

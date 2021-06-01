@@ -5,20 +5,60 @@
   width: 100%;
   background-color: white;
   padding: 2rem;
+  box-sizing: border-box;
 }
 
 .features__title {
+  font-size: 4rem;
+  max-width: 50%;
+  font-weight: 400;
+  margin-left: 1rem;
+}
+
+.features h3 {
   font-size: 2rem;
+  font-weight: 400;
+  color: var(--primaryColor)
+}
+
+.features p {
+  font-size: 1.5rem;
 }
 
 .features__container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  box-sizing: border-box;
 }
 
 .features__feature {
   flex: 0 0 50%;
   padding: 1rem;
   box-sizing: border-box;
+}
+
+@media screen and (max-width: 800px) {
+
+  .features {
+    padding: 1rem;
+    height: unset;
+  }
+
+  .features__title {
+    font-size: 2.5rem;
+    max-width: 100%;
+  }
+
+  .features h3 {
+    margin-top: 0;
+  }
+
+  .features p {
+    font-size: 1rem;
+  }
+
+  .features__feature {
+    flex: 0 0 100%;
+  }
 }

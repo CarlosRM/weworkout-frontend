@@ -1,24 +1,16 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectAuth, selectCategories, selectRoutines, selectUsers } from '../../../constants'
-import { VanillaButton } from '../../../components/VanillaButton'
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
-import StarBorderIcon from '@material-ui/icons/StarBorder'
-import VisibilityIcon from '@material-ui/icons/Visibility'
-import ChatIcon from '@material-ui/icons/Chat'
-import StarIcon from '@material-ui/icons/Star'
-import RoutineGrid from  '../../../components/RoutineGrid/RoutineGrid'
+import { selectAuth, selectRoutines, selectUsers } from '../../../constants'
+import RoutineGrid from '../../../components/RoutineGrid/RoutineGrid'
 
 import style from './UserComponent.css'
-import { Avatar, Card, CardContent } from '@material-ui/core'
 import { ThinButton } from '../../../components/ThinButton'
 import { follow, unfollow } from '../../AuthModule/reducers/AuthReducer'
 import Cookies from 'universal-cookie'
 
 const UserComponent = (props) => {
   const routinesState = useSelector(selectRoutines)
-  const categoriesState = useSelector(selectCategories)
   const usersState = useSelector(selectUsers)
   const authState = useSelector(selectAuth)
 
@@ -41,7 +33,6 @@ const UserComponent = (props) => {
       id: authState.user.id,
       followeeId: user.id
     }
-    console.log(data)
     dispatch(unfollow(data))
   }
 

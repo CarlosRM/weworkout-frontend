@@ -26,3 +26,16 @@
   padding: 1rem;
   box-sizing: border-box;
 }
+
+
+@media screen and (max-width: 800px) {
+  .column {
+    flex: 0 0 100%;
+    padding: 0;
+  }
+
+  .editUser__title {
+    padding-left: 0;
+    margin-bottom: 0;
+  }
+}

@@ -1,0 +1,30 @@
+.workoutSlider {
+  display: flex;
+  max-width: 100%;
+  overflow-x: hidden;
+  flex-wrap: wrap;
+}
+
+.workoutSlider__heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--primaryColor);
+}
+
+.workoutSlider__expandMore {
+  width: 100%;
+}
+
+@media screen and (max-width: 500px) {
+  .workoutSlider {
+    display: flex;
+    max-width: 100%;
+    overflow-x: scroll;
+    flex-wrap: wrap;
+  }
+
+  .worrkoutSlider__expandMore {
+    display: none;
+  }
+}

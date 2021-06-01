@@ -1,0 +1,40 @@
+.main {
+  min-height: 100vh;
+  max-width: 100%;
+  padding: 80px 2rem 2rem 2rem;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.graphControls {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 30%;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.graphControls form {
+  display: flex;
+  flex-direction: column;
+}
+
+.graphControls form > div {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.graphContainer {
+  flex: 0 0 70%;
+}
+
+@media screen and (max-width: 800px) {
+  .graphControls,
+  .graphContainer {
+    flex: 0 0 100%;
+    padding: 0;
+  }
+}

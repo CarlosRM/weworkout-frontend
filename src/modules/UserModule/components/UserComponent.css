@@ -3,6 +3,7 @@
   max-width: 100%;
   padding: 80px 2rem 2rem 2rem;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .column {
@@ -38,6 +39,7 @@
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .user__stat {
@@ -74,4 +76,11 @@ button.user__control {
 .user__commentDate {
   display: block;
   margin-left: auto;
+}
+
+@media screen and (max-width: 500px) {
+  .firstColumn, 
+  .secondColumn {
+    flex: 0 0 100%;
+  }
 }

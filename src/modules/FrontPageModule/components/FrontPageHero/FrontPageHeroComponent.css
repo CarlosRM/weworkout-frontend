@@ -23,3 +23,14 @@
 .hero__title {
   font-size: 4rem;
 }
+
+@media screen and (max-width: 800px) {
+  .hero__catch {
+    width: 100%;
+  }
+
+  .hero__title {
+    font-size: 3rem;
+    text-align: center;
+  }
+}
