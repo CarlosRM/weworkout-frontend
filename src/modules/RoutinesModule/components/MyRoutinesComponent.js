@@ -41,9 +41,15 @@ const MyRoutinesComponent = (props) => {
     hideDeleteModal()
   }
 
+  function sortByDate (a, b) {
+    // Turn your strings into dates, and then subtract them
+    // to get a value that is either negative, positive, or zero.
+    return new Date(b.updated_at) - new Date(a.updated_at)
+  }
+
   const user = authState.user
 
-  const myRoutines = routinesState.allRoutines.filter(el => el.user_id === authState.user.id)
+  const myRoutines = routinesState.allRoutines.filter(el => el.user_id === authState.user.id).sort(sortByDate)
 
   return (
     <div className={style.main}>
