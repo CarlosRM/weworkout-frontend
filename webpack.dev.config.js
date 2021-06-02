@@ -94,7 +94,7 @@ module.exports = {
     new MiniCssExtractPlugin(),
     new ProvidePlugin({
       process: 'process/browser',
-      Buffer: ['buffer', 'Buffer'],
+      Buffer: ['buffer', 'Buffer']
     })
   ]
 }

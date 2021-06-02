@@ -10,9 +10,9 @@ const imageminMozjpeg = require('imagemin-mozjpeg')
 const imageminSvgo = require('imagemin-svgo')
 const imageminWebp = require('imagemin-webp')
 const ESLintPlugin = require('eslint-webpack-plugin')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const CompressionPlugin = require('compression-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
+const { ProvidePlugin } = require('webpack')
 
 module.exports = {
   mode: 'production',
@@ -113,6 +113,10 @@ module.exports = {
       inject: 'body'
     }),
     new MiniCssExtractPlugin(),
+    new ProvidePlugin({
+      process: 'process/browser',
+      Buffer: ['buffer', 'Buffer']
+    }),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [
