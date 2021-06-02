@@ -7,10 +7,10 @@
     "_stylelint": "stylelint src/components/*/*.css",
     "test": "jest --verbose",
     "testWatch": "jest --verbose --watch",
-    "dev": "webpack serve --open --hot --config webpack.dev.config.js --port 8080 --host 127.0.0.1",
-    "devTest": "jest && webpack-dev-server --open --hot --config webpack.dev.config.js",
-    "build": "webpack --mode=production --config webpack.config.js",
-    "profile": "webpack --mode=production --config webpack.config.js --profile --json > stats.json"
+    "dev": "webpack serve --open --hot --config webpack.dev.config.js --port 8080 --host 127.0.0.1 --env environment=dev",
+    "devTest": "jest && webpack-dev-server --open --hot --config webpack.dev.config.js --env environment=dev",
+    "build": "webpack --mode=production --config webpack.config.js --env environment=prod",
+    "profile": "webpack --mode=production --config webpack.config.js --profile --json > stats.json --env environment=prod"
   },
   "keywords": [],
   "author": "",
@@ -39,6 +39,7 @@
     "css-loader": "^5.2.0",
     "css-minimizer-webpack-plugin": "^1.3.0",
     "date-fns": "^2.21.3",
+    "dotenv-webpack": "^7.0.2",
     "eslint": "^7.23.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
