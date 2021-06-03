@@ -14,7 +14,6 @@ const CompressionPlugin = require('compression-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const { ProvidePlugin } = require('webpack')
 const { DefinePlugin } = require('webpack')
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = (env) => {
@@ -155,7 +154,6 @@ module.exports = (env) => {
           })
         ]
       }),
-      new BundleAnalyzerPlugin(),
       new CompressionPlugin({
         algorithm: 'gzip',
         test: /\.js$|\.css$|\.html$/,
