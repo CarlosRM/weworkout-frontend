@@ -301,13 +301,7 @@ const authSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(login.pending, (state, action) => {
-        state = {
-          ...initialState,
-          login: {
-            ...initialState.login,
-            loading: true
-          }
-        }
+        state.login.loading = true
       })
       .addCase(login.fulfilled, (state, action) => {
         state.login.loading = false
