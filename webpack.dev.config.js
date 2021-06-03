@@ -6,7 +6,7 @@ const { ProvidePlugin } = require('webpack')
 const { DefinePlugin } = require('webpack')
 
 module.exports = (env) => {
-  const apiEndpoint = env.environment === 'prod' ? 'https://weworkoutbackend.herokuapp.com/' : 'http://127.0.0.1:8000'
+  const apiEndpoint = env.environment === 'prod' ? 'https://weworkoutbackend.herokuapp.com/' : 'http://127.0.0.1:8000/'
   return {
     mode: 'development',
     entry: ['@babel/polyfill', './src/index.js'],

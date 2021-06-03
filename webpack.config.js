@@ -14,9 +14,11 @@ const CompressionPlugin = require('compression-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const { ProvidePlugin } = require('webpack')
 const { DefinePlugin } = require('webpack')
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = (env) => {
-  const apiEndpoint = env.environment === 'prod' ? 'https://weworkoutbackend.herokuapp.com/' : 'http://127.0.0.1:8000'
+  const apiEndpoint = env.environment === 'prod' ? 'https://weworkoutbackend.herokuapp.com/' : 'http://127.0.0.1:8000/'
   return {
     mode: 'production',
     entry: ['babel-polyfill', './src/index.js'],
@@ -103,7 +105,10 @@ module.exports = (env) => {
       minimize: true,
       minimizer: [
         new CssMinimizerPlugin(),
-        new TerserPlugin()
+        new TerserPlugin(),
+        new UglifyJsPlugin({
+          test: /\.js(\?.*)?$/i
+        })
       ]
     },
     plugins: [
@@ -136,7 +141,7 @@ module.exports = (env) => {
       new ImageminPlugin({
         plugins: [
           imageminMozjpeg({
-            quality: 50
+            quality: 100
           }),
           imageminSvgo({
             plugins: [
@@ -146,11 +151,11 @@ module.exports = (env) => {
             ]
           }),
           imageminWebp({
-            quality: 50
+            quality: 100
           })
         ]
       }),
-      /* new BundleAnalyzerPlugin(), */
+      new BundleAnalyzerPlugin(),
       new CompressionPlugin({
         algorithm: 'gzip',
         test: /\.js$|\.css$|\.html$/,
