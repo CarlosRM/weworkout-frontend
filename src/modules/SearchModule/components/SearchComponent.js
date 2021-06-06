@@ -103,7 +103,7 @@ const SearchComponent = () => {
   return (
     <div className={style.main}>
       <h1>Buscar</h1>
-      <form autoComplete="off">
+      <form autoComplete="off" onSubmit={(e) => e.preventDefault()}>
         <TextField
           variant="outlined"
           label={'Buscar por nombre'}

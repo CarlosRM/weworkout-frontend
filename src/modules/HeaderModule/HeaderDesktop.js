@@ -19,7 +19,7 @@ const HeaderDesktopComponent = () => {
     isUserLoggedIn(entireState)
       ? <div className={style.headerWrapper}>
         <nav className={style.header}>
-          <img className={style.header__logo} src='/src/assets/images/logo.png'></img>
+          <Link to='/' className={style.header__logo}><img src='/src/assets/images/logo.png'></img></Link>
           <Link to='/dashboard' className={style.header__link}>Home</Link>
           <Link to='/search' className={style.header__link}>Buscar</Link>
           <Link to='/favourites' className={style.header__link}>Favoritos</Link>
