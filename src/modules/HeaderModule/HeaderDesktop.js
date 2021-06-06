@@ -19,7 +19,7 @@ const HeaderDesktopComponent = () => {
     isUserLoggedIn(entireState)
       ? <div className={style.headerWrapper}>
         <nav className={style.header}>
-          <Link to='/' className={style.header__logo}><img src='/src/assets/images/logo.png'></img></Link>
+          <Link to='/dashboard' className={style.header__logo}><img src='/src/assets/images/logo.png'></img></Link>
           <Link to='/dashboard' className={style.header__link}>Home</Link>
           <Link to='/search' className={style.header__link}>Buscar</Link>
           <Link to='/favourites' className={style.header__link}>Favoritos</Link>
@@ -29,7 +29,7 @@ const HeaderDesktopComponent = () => {
       </div>
       : <div className={style.headerWrapperOutside}>
           <nav className={style.header}>
-            <img className={style.header__logo} src='/src/assets/images/logo.png'></img>
+            <Link to='/' className={style.header__logo}><img src='/src/assets/images/logo.png'></img></Link>
             <Link to='/login' className={style.header__link}>Iniciar sesión</Link>
             <Link to='/register' className={style.header__link}>Registrarse</Link>
           </nav>
