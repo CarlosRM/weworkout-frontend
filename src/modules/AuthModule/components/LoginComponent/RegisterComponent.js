@@ -70,8 +70,8 @@ const RegisterComponent = () => {
     email: [validators.isRequired, validators.isEmail],
     genre: [validators.isRequired],
     birthdate: [validators.isRequired],
-    password: [validators.isRequired],
-    confirmPassword: [validators.isRequired]
+    password: [validators.isRequired, validators.matchesConfirmPassword],
+    confirmPassword: [validators.isRequired, validators.matchesPassword]
   })
 
   /*
@@ -100,7 +100,7 @@ const RegisterComponent = () => {
       obj.forEach(
         constraint => {
           if (formData[field].dirty) {
-            const validationResult = constraint(formData[field].value)
+            const validationResult = constraint(formData[field].value, formData)
             errors[field] = [...errors[field], validationResult]
           }
         }
